@@ -30,3 +30,7 @@ def logout_view(request):
     logout(request)
     messages.info(request, "Logged out.")
     return redirect('login')
+
+@login_required
+def dashboard_view(request):
+    return render(request, "accounts/dashboard.html")
