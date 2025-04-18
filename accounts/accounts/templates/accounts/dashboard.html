@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<h1>User Dashboard</h1>
+<p>Welcome, {{ request.user.username }}!</p>
+
+<h2>Upcoming Appointments</h2>
+<ul>
+  {% for appt in upcoming %}
+    <li>{{ appt.service }} on {{ appt.date }} {{ appt.time }}</li>
+  {% empty %}
+    <li>No upcoming appointments.</li>
+  {% endfor %}
+</ul>
+
+<h2>Past Appointments</h2>
+<ul>
+  {% for appt in past %}
+    <li>{{ appt.service }} on {{ appt.date }} ({{ appt.status }})</li>
+  {% empty %}
+    <li>No past appointments.</li>
+  {% endfor %}
+</ul>
