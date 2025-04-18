@@ -30,3 +30,19 @@ def logout_view(request):
     logout(request)
     messages.info(request, "Logged out.")
     return redirect('login')
+
+from appointments.models import Appointment
+from django.utils import timezone
+
+@login_required
+def dashboard_view(request):
+    upcoming = Appointment.objects.filter(user=request.user, date__gte=timezone.now())
+    past = Appointment.objects.filter(user=request.user, date__lt=timezone.now())
+    return render(request, "accounts/dashboard.html", {
+        'upcoming': upcoming,
+        'past': past,
+    })
+
+@login_required
+def dashboard_view(request):
+    return render(request, "accounts/dashboard.html")
