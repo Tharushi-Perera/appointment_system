@@ -1,10 +1,117 @@
+<!-- templates/base.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Salon Name</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Add your CSS link here -->
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: white;
+            border-bottom: 1px solid gray;
+            z-index: 1000;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav li {
+            margin: 0 10px;
+        }
+        nav a {
+            text-decoration: none;
+            color: black;
+            padding: 8px 12px;
+            border: 1px solid gray;
+            border-radius: 4px;
+        }
+
+        /* Content spacing due to fixed nav */
+        .content {
+            padding-top: 80px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #f5f5f5;
+            padding: 30px 10px;
+            border-top: 1px solid #ccc;
+            margin-top: 50px;
+        }
+        .footer-sections {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        .footer-section {
+            margin: 10px;
+            min-width: 150px;
+        }
+        .footer-bottom {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+    </style>
 </head>
 <body>
+    <!-- Navbar -->
+    <nav>
+        <ul>
+            <li><strong>Salon name</strong></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Service</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#"><i>👤</i></a></li>
+            <li><a href="#">Book Now</a></li>
+        </ul>
+    </nav>
 
+    <!-- Page content -->
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-sections">
+            <div class="footer-section">
+                <p>Logo – let's make one or take one from the internet</p>
+            </div>
+            <div class="footer-section">
+                <strong>Quick Links</strong>
+                <ul style="list-style: none; padding: 0;">
+                    <li>Home</li>
+                    <li>About</li>
+                    <li>Contact</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <strong>Contact us</strong>
+                <p>Details here</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <strong>©</strong> 2025 All rights reserved @ salon name | Developed by Team9
+        </div>
+    </footer>
 </body>
 </html>
