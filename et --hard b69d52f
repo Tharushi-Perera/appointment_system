@@ -1,0 +1,17 @@
+[33mcommit a0f19ea361667f3fc7927a56b9a0adaff4b26758[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31mtharushi/sayuri[m[33m, [m[1;31morigin/sayuri[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32msayuri[m[33m)[m
+Author: Sayuri Witharana <sayuriwitharana@gmail.com>
+Date:   Thu Apr 17 18:51:29 2025 +0530
+
+    Added homepage and services pages (html)
+
+[33mcommit b69d52fce1bbcb9fb764a0bed2eee41a86b79e88[m
+Author: Tharushi Perera <tharushiperera991@gmail.com>
+Date:   Tue Apr 8 12:22:15 2025 +0530
+
+    Started Django project
+
+[33mcommit d0cb5314f2bdf5d744bd2d02d1da9c604082afc5[m
+Author: Tharushi Perera <tharushiperera991@gmail.com>
+Date:   Tue Apr 8 12:13:59 2025 +0530
+
+    Initial project setup
