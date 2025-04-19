@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>My Appointments</h2>
+<ul>
+  {% for an in appointments %}
+    <li>{{ a.service.name }} — {{ a.date }} at {{ a.time }} ({{ a.status }})</li>
+  {% empty %}
+    <li>No appointments yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
