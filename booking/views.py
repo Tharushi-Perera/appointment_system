@@ -4,6 +4,7 @@ from .forms import AppointmentForm
 from .models import Appointment, Service
 from django.contrib.auth.decorators import login_required
 
+
 def generate_time_slots(start_time, end_time, duration):
     slots = []
     current = start_time
@@ -12,7 +13,13 @@ def generate_time_slots(start_time, end_time, duration):
         current += datetime.timedelta(minutes=duration)
     return slots
 
-@login_required
+
+def home(request):
+    services = Service.objects.all()
+    return render(request, 'home.html', {'services': services})
+
+
+#@login_required
 def book_appointment(request):
     form = AppointmentForm()
     time_slots = []
@@ -50,7 +57,8 @@ def book_appointment(request):
 
     return render(request, 'booking/book.html', {'form': form})
 
-@login_required
+
+#@login_required
 def confirm_appointment(request):
     if request.method == 'POST':
         time_str = request.POST.get('time')
@@ -69,3 +77,9 @@ def confirm_appointment(request):
         return redirect('user_dashboard')  # or confirmation page
 
     return redirect('book')
+
+
+#@login_required
+def my_appointments(request):
+    appointments = Appointment.objects.filter(user=request.user).order_by('-date')
+    return render(request, 'booking/my_appointments.html', {'appointments': appointments})

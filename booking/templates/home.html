@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Our Services</h2>
+<ul>
+  {% for service in services %}
+    <li><strong>{{ service.name }}</strong>: {{ service.description }} — ${{ service.price }}</li>
+  {% endfor %}
+</ul>
+<a href="{% url 'booking:book_appointment' %}">Book an Appointment</a>
+{% endblock %}
