@@ -1,10 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "core/base.html" %}
+{% load static %}
 
-</body>
-</html>
+{% block title %}Services - Your Salon{% endblock %}
+
+{% block content %}
+<section class="py-10 px-4 bg-white text-gray-800">
+    <div class="container mx-auto max-w-6xl">
+        <h1 class="text-4xl font-bold text-center mb-10">Our Services</h1>
+
+        <!-- Filter and Sort Controls -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+            <select id="categoryFilter" onchange="filterServices()" class="border p-2 rounded w-full md:w-1/3">
+                <option value="all">All Categories</option>
+                {% for category in service_data.keys %}
+                <option value="{{ category|slugify }}">{{ category }}</option>
+                {% endfor %}
+            </select>
+
+            <select id="sortPrice" onchange="sortServices()" class="border p-2 rounded w-full md:w-1/3">
+                <option value="default">Sort by</option>
+                <option value="low-high">Price: Low to High</option>
+                <option value="high-low">Price: High to Low</option>
+            </select>
+        </div>
+
+        <div id="servicesContainer">
+            {% for category, services in service_data.items %}
+            <div class="service-category mb-10" data-category="{{ category|slugify }}">
+                <h2 class="text-2xl font-semibold mb-4">{{ category }}</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    {% for service in services %}
+                    <div class="border rounded-lg overflow-hidden shadow-lg bg-gray-50">
+                        <img src="{{ service.image_url }}" alt="{{ service.name }}" class="w-full h-48 object-cover">
+                        <div class="p-4 flex justify-between items-center">
+                            <span class="font-medium">{{ service.name }}</span>
+                            <span class="font-semibold text-blue-600">Rs. {{ service.price }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<script>
+function filterServices() {
+    const selected = document.getElementById('categoryFilter').value;
+    document.querySelectorAll('.service-category').forEach(el => {
+        el.style.display = selected === 'all' || el.dataset.category === selected ? 'block' : 'none';
+    });
+}
+
+function sortServices() {
+    const sortBy = document.getElementById('sortPrice').value;
+    const container = document.getElementById('servicesContainer');
+    const sections = Array.from(container.children);
+
+    sections.forEach(section => {
+        const cards = Array.from(section.querySelectorAll('.border'));
+        cards.sort((a, b) => {
+            const priceA = parseInt(a.querySelector('span.text-blue-600').textContent.replace(/\D/g, ''));
+            const priceB = parseInt(b.querySelector('span.text-blue-600').textContent.replace(/\D/g, ''));
+            return sortBy === 'low-high' ? priceA - priceB : priceB - priceA;
+        });
+        cards.forEach(card => section.querySelector('.grid').appendChild(card));
+    });
+}
+</script>
+{% endblock %}
+

@@ -1,10 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'core/base.html' %}
 
-</body>
-</html>
+{% block title %}Home - Salon Name{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section with 3 Pictures and Paragraph -->
+<section class="bg-blue-300 py-10 px-4">
+    <div class="container mx-auto text-center space-y-6">
+        <div class="flex flex-col md:flex-row justify-center gap-6">
+            <div class="bg-blue-100 p-6 rounded shadow-md w-full md:w-1/3">Picture 1</div>
+            <div class="bg-blue-100 p-6 rounded shadow-md w-full md:w-1/3">Picture 2</div>
+            <div class="bg-blue-100 p-6 rounded shadow-md w-full md:w-1/3">Picture 3</div>
+        </div>
+        <p class="bg-white p-4 rounded shadow text-gray-700">“Need to put a paragraph here – like a small one ” - paragraph 1</p>
+    </div>
+</section>
+
+<!-- Why Us Section -->
+<section class="bg-purple-300 py-10 px-4">
+    <div class="container mx-auto">
+        <h2 class="text-2xl font-bold mb-4">Why US?</h2>
+        <div class="bg-purple-200 p-4 rounded shadow text-gray-700">
+            Need to put a paragraph here - paragraph 2
+        </div>
+    </div>
+</section>
+
+<!-- Our Services Section -->
+<section class="bg-purple-300 py-10 px-4">
+    <div class="container mx-auto">
+        <h2 class="text-2xl font-bold mb-4">Our services</h2>
+        <div class="bg-purple-200 p-4 rounded shadow text-gray-700">
+            Need to put a paragraph here - paragraph 3
+        </div>
+    </div>
+</section>
+
+<!-- Our Team Section -->
+<section class="bg-purple-300 py-10 px-4">
+    <div class="container mx-auto">
+        <h2 class="text-2xl font-bold mb-4">Our Team</h2>
+        <div class="flex flex-col md:flex-row gap-6">
+            <div class="bg-blue-300 p-6 rounded shadow-md w-full md:w-1/2 text-center">Our picture here – picture 4</div>
+            <div class="bg-purple-200 p-6 rounded shadow-md w-full md:w-1/2 text-gray-700">
+                Some wording here about the team - paragraph 4
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
