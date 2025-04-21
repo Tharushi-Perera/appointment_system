@@ -1,10 +1,28 @@
 {% extends "base.html" %}
 {% block title %}Hair Services{% endblock %}
 {% block content %}
+<section class="hero is-medium is-primary is-bold" style="background-image: url('https://via.placeholder.com/1200x400?text=Nail+Care+Banner'); background-size: cover; background-position: center;">
+  <div class="hero-body has-background-black-transparent">
+    <div class="container has-text-centered">
+      <h1 class="title is-size-2 has-text-white">Nail Services</h1>
+      <h2 class="subtitle has-text-white">Elegance at your fingertips</h2>
+    </div>
+  </div>
+</section>
 <section class="section">
   <div class="container">
-    <h1 class="title has-text-centered">Nail Services</h1>
-    <p class="has-text-centered">This is the Nail Services page.</p>
+    <h2 class="title is-4 has-text-link">Manicure & Pedicure</h2>
+    <div class="box">
+      <div class="columns is-mobile is-vcentered"><div class="column">Classic Manicure</div><div class="column has-text-right">Rs. 2,800</div></div>
+      <div class="columns is-mobile is-vcentered"><div class="column">Spa Pedicure</div><div class="column has-text-right">Rs. 5,500</div></div>
+      <div class="columns is-mobile is-vcentered"><div class="column">Hydrating Pedicure with Gel Color</div><div class="column has-text-right">Rs. 6,800</div></div>
+    </div>
+    <h2 class="title is-4 has-text-link">Nail Extensions & Art</h2>
+    <div class="box">
+      <div class="columns is-mobile is-vcentered"><div class="column">Gel Full Set (Hands)</div><div class="column has-text-right">Rs. 9,000</div></div>
+      <div class="columns is-mobile is-vcentered"><div class="column">Acrylic Full Set with Gel Color</div><div class="column has-text-right">Rs. 9,500</div></div>
+      <div class="columns is-mobile is-vcentered"><div class="column">Nail Art (Per Nail)</div><div class="column has-text-right">Rs. 250 – Rs. 500</div></div>
+    </div>
   </div>
 </section>
 {% endblock %}
