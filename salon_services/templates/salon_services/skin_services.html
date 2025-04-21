@@ -1,10 +1,41 @@
 {% extends "base.html" %}
-{% block title %}Hair Services{% endblock %}
+{% block title %}Skin Services - Your Salon{% endblock %}
 {% block content %}
+<section class="hero is-medium is-primary is-bold" style="background-image: url('https://via.placeholder.com/1200x400?text=Skin+Care+Banner'); background-size: cover; background-position: center;">
+  <div class="hero-body has-background-black-transparent">
+    <div class="container has-text-centered">
+      <h1 class="title is-size-2 has-text-white">Skin Services</h1>
+      <h2 class="subtitle has-text-white">Glow, hydrate, and renew your skin.</h2>
+    </div>
+  </div>
+</section>
 <section class="section">
   <div class="container">
-    <h1 class="title has-text-centered">Skin Services</h1>
-    <p class="has-text-centered">This is the Skin Services page.</p>
+    <h2 class="title is-4 has-text-link">Facials</h2>
+    <div class="box">
+      <div class="columns is-mobile is-vcentered"><div class="column">Classic Cleanup</div><div class="column has-text-right">Rs. 2,500</div></div>
+      <div class="columns is-mobile is-vcentered"><div class="column">Skin Glow Facial</div><div class="column has-text-right">Rs. 4,000</div></div>
+      <div class="columns is-mobile is-vcentered"><div class="column">Vitamin C Facial</div><div class="column has-text-right">Rs. 6,000</div></div>
+      <div class="columns is-mobile is-vcentered"><div class="column">Hydra Facial</div><div class="column has-text-right">Rs. 7,500</div></div>
+    </div>
+    <h2 class="title is-4 has-text-link">Threading & Waxing</h2>
+    <div class="box">
+      <div class="columns is-mobile is-vcentered"><div class="column">Eyebrows Threading</div><div class="column has-text-right">Rs. 300</div></div>
+      <div class="columns is-mobile is-vcentered"><div class="column">Full Face Wax</div><div class="column has-text-right">Rs. 1,800</div></div>
+      <div class="columns is-mobile is-vcentered"><div class="column">Full Arms Wax</div><div class="column has-text-right">Rs. 4,500</div></div>
+      <div class="columns is-mobile is-vcentered"><div class="column">Full Legs Wax</div><div class="column has-text-right">Rs. 6,000</div></div>
+    </div>
+    <h2 class="title is-4 has-text-link">Detan & Bleach</h2>
+    <div class="box">
+      <div class="columns is-mobile is-vcentered"><div class="column">Face & Neck Detan</div><div class="column has-text-right">Rs. 3,000</div></div>
+      <div class="columns is-mobile is-vcentered"><div class="column">Full Body Detan</div><div class="column has-text-right">Rs. 8,000</div></div>
+      <div class="columns is-mobile is-vcentered"><div class="column">Face Bleach</div><div class="column has-text-right">Rs. 2,000</div></div>
+    </div>
+    <h2 class="title is-4 has-text-link">Add-On Services</h2>
+    <div class="box">
+      <div class="columns is-mobile is-vcentered"><div class="column">Lip Lightening Treatment</div><div class="column has-text-right">Rs. 1,200</div></div>
+      <div class="columns is-mobile is-vcentered"><div class="column">Under Eye Treatment</div><div class="column has-text-right">Rs. 1,800</div></div>
+    </div>
   </div>
 </section>
 {% endblock %}
