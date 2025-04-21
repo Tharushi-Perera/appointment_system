@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('booking.urls', namespace='booking')),
     path('', include('accounts.urls')),
     path('', views.home, name='home'),
+    path('services/', include('salon_services.urls')),
 ]
