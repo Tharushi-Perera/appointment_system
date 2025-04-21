@@ -1,8 +1,38 @@
-{% extends 'base.html' %}
+
+
+{% extends "base.html" %}
+
+{% block title %}Services - GlamSalon{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>Our Services</h1>
-    <p>Welcome to our list of salon services!</p>
-</div>
+<section class="py-10 px-4 bg-white text-gray-800">
+    <div class="container mx-auto max-w-4xl">
+        <h1 class="text-3xl font-bold text-center mb-10">Our Services</h1>
+
+        {% comment %} Define each category as a collapsible section {% endcomment %}
+        {% for category, services in service_data.items %}
+        <div class="mb-6 border rounded-lg shadow">
+            <button class="w-full text-left p-4 font-semibold bg-blue-100 hover:bg-blue-200 focus:outline-none" onclick="toggleCategory('{{ category|slugify }}')">
+                {{ category }}
+            </button>
+            <div id="{{ category|slugify }}" class="hidden p-4 bg-white space-y-2">
+                {% for service in services %}
+                <div class="flex justify-between border-b pb-2">
+                    <span>{{ service.name }}</span>
+                    <span class="font-semibold">Rs. {{ service.price }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<script>
+function toggleCategory(id) {
+    const section = document.getElementById(id);
+    section.classList.toggle("hidden");
+}
+</script>
 {% endblock %}
+
