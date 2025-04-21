@@ -16,7 +16,7 @@ def generate_time_slots(start_time, end_time, duration):
 
 def home(request):
     services = Service.objects.all()
-    return render(request, 'home.html', {'services': services})
+    return render(request, 'home.html', {'listing_services': services})
 
 
 @login_required
