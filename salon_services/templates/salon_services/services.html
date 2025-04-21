@@ -1,38 +1,95 @@
-
-
 {% extends "base.html" %}
 
-{% block title %}Services - GlamSalon{% endblock %}
+{% block title %}Our Services{% endblock %}
 
 {% block content %}
-<section class="py-10 px-4 bg-white text-gray-800">
-    <div class="container mx-auto max-w-4xl">
-        <h1 class="text-3xl font-bold text-center mb-10">Our Services</h1>
+<section class="section has-background-light">
+  <div class="container">
+    <h1 class="title has-text-centered is-size-2 mb-6">Explore Our Salon Services</h1>
 
-        {% comment %} Define each category as a collapsible section {% endcomment %}
-        {% for category, services in service_data.items %}
-        <div class="mb-6 border rounded-lg shadow">
-            <button class="w-full text-left p-4 font-semibold bg-blue-100 hover:bg-blue-200 focus:outline-none" onclick="toggleCategory('{{ category|slugify }}')">
-                {{ category }}
-            </button>
-            <div id="{{ category|slugify }}" class="hidden p-4 bg-white space-y-2">
-                {% for service in services %}
-                <div class="flex justify-between border-b pb-2">
-                    <span>{{ service.name }}</span>
-                    <span class="font-semibold">Rs. {{ service.price }}</span>
-                </div>
-                {% endfor %}
-            </div>
+    <div class="columns is-multiline is-centered">
+
+      <!-- Hair Services -->
+      <div class="column is-4">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <img src="https://via.placeholder.com/600x400?text=Hair+Services" alt="Hair Services">
+            </figure>
+          </div>
+          <div class="card-content has-text-centered">
+            <p class="title is-4 has-text-link">Hair Services</p>
+            <p class="subtitle is-6">Haircuts, Styling, Coloring & Treatments</p>
+            <a href="{% url 'hair_services' %}" class="button is-link is-outlined mt-3">View Details</a>
+          </div>
         </div>
-        {% endfor %}
+      </div>
+
+      <!-- Skin Services -->
+      <div class="column is-4">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <img src="https://via.placeholder.com/600x400?text=Skin+Services" alt="Skin Services">
+            </figure>
+          </div>
+          <div class="card-content has-text-centered">
+            <p class="title is-4 has-text-success">Skin Services</p>
+            <p class="subtitle is-6">Facials, Waxing, De-Tan Treatments</p>
+            <a href="{% url 'skin_services' %}" class="button is-success is-outlined mt-3">View Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Body Services -->
+      <div class="column is-4">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <img src="https://via.placeholder.com/600x400?text=Body+Services" alt="Body Services">
+            </figure>
+          </div>
+          <div class="card-content has-text-centered">
+            <p class="title is-4 has-text-warning-dark">Body Services</p>
+            <p class="subtitle is-6">Massages, Scrubs, Polish & More</p>
+            <a href="{% url 'body_services' %}" class="button is-warning is-outlined mt-3">View Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nail Services -->
+      <div class="column is-4">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <img src="https://via.placeholder.com/600x400?text=Nail+Services" alt="Nail Services">
+            </figure>
+          </div>
+          <div class="card-content has-text-centered">
+            <p class="title is-4 has-text-danger">Nail Services</p>
+            <p class="subtitle is-6">Manicures, Pedicures, Nail Art</p>
+            <a href="{% url 'nail_services' %}" class="button is-danger is-outlined mt-3">View Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bridal Services -->
+      <div class="column is-4">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <img src="https://via.placeholder.com/600x400?text=Bridal+Services" alt="Bridal Services">
+            </figure>
+          </div>
+          <div class="card-content has-text-centered">
+            <p class="title is-4 has-text-purple">Bridal Services</p>
+            <p class="subtitle is-6">Makeup, Mehendi & Saree Draping</p>
+            <a href="{% url 'bridal_services' %}" class="button is-link is-light mt-3">View Details</a>
+          </div>
+        </div>
+      </div>
+
     </div>
+  </div>
 </section>
-
-<script>
-function toggleCategory(id) {
-    const section = document.getElementById(id);
-    section.classList.toggle("hidden");
-}
-</script>
 {% endblock %}
-
