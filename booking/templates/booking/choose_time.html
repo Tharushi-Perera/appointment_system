@@ -1,18 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Choose Time Slot</h2>
-<p>Service: {{ service.name }} | Date: {{ date }}</p>
-
-<form method="post" action="{% url 'booking:confirm_appointment' %}">
-  {% csrf_token %}
-  {% for slot in slots %}
-    <div>
-      <label>
-        <input type="radio" name="time" value="{{ slot }}" required>
-        {{ slot }}
-      </label>
+<div class="card shadow-sm p-4">
+  <h2 class="mb-4">Choose Time Slot</h2>
+  <p><strong>Service:</strong> {{ service.name }} | <strong>Date:</strong> {{ date }}</p>
+  <form method="post" action="{% url 'booking:confirm_appointment' %}">
+    {% csrf_token %}
+    <div class="row">
+      {% for slot in slots %}
+        <div class="col-md-3 mb-2">
+          <label class="btn btn-outline-primary w-100">
+            <input type="radio" name="time" value="{{ slot }}" required> {{ slot }}
+          </label>
+        </div>
+      {% endfor %}
     </div>
-  {% endfor %}
-  <button type="submit">Confirm Booking</button>
-</form>
+    <button type="submit" class="btn btn-primary mt-3">Confirm Booking</button>
+  </form>
+</div>
 {% endblock %}

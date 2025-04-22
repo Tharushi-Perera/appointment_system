@@ -1,9 +1,108 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
 {% block content %}
-<h2>Book an Appointment</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Next</button>
-</form>
+<style>
+    .booking-container {
+        display: flex;
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        overflow: hidden;
+        max-width: 900px;
+        margin: 2rem auto;
+    }
+    .booking-left {
+        flex: 1;
+        background-image: url("{% static 'img/booking_banner.jpg' %}");
+        background-size: cover;
+        background-position: center;
+    }
+    .booking-right {
+        flex: 1;
+        padding: 3rem 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .booking-right h2 {
+        color: #1a1a3d;
+        font-size: 2rem;
+        font-weight: 700;
+        text-align: center;
+    }
+    .booking-right p {
+        text-align: center;
+        margin-bottom: 2rem;
+        color: #555;
+    }
+    .form-group {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    .form-control {
+        border-radius: 8px;
+        padding: 0.6rem 1rem;
+        border: 1px solid #ccc;
+        width: 100%;
+    }
+    .btn-book {
+        background-color: #5f2c82;
+        color: #fff;
+        font-weight: bold;
+        border: none;
+        padding: 0.6rem 2rem;
+        border-radius: 10px;
+        width: 100%;
+        transition: 0.3s ease;
+    }
+    .btn-book:hover {
+        background-color: #4c2370;
+    }
+    .booking-quote {
+        font-style: italic;
+        color: #666;
+        margin-top: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .booking-container {
+            flex-direction: column;
+        }
+        .booking-left {
+            height: 250px;
+        }
+    }
+</style>
+
+<div class="booking-container">
+    <div class="booking-left"></div>
+
+    <div class="booking-right">
+        <div class="text-center mb-3">
+            <div style="font-size: 2rem;">📅</div>
+            <h2>Book Your Appointment</h2>
+            <p>Choose your service and preferred date<br>to glam up!</p>
+        </div>
+
+        <form method="post" style="width: 100%; max-width: 400px;">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.service.label_tag }}<br>
+                {{ form.service|add_class:"form-control" }}
+            </div>
+            <div class="form-group">
+                {{ form.date.label_tag }}<br>
+                {{ form.date|add_class:"form-control" }}
+            </div>
+            <button type="submit" class="btn-book">Next</button>
+        </form>
+
+        <div class="booking-quote text-center mt-3">
+            “Be on time and let the glam begin!”
+        </div>
+    </div>
+</div>
 {% endblock %}
+
