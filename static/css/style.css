@@ -82,40 +82,28 @@
 
 /* Why Choose Us section */
 .why-us-section {
-  background: linear-gradient(to bottom, #7b1fa2, #9c27b0);
+  background: linear-gradient(rgba(123, 31, 162, 0.8), rgba(156, 39, 176, 0.8)),
+              url('../img/salon_bg_subtle.jpg') no-repeat center center;
+  background-size: cover;
   padding: 60px 0;
   color: white;
   margin-bottom: 40px;
-}
-
-
-
-.why-us-section h2 {
-  color: #f3e5f5;
-}
-
-.why-us-section i {
-  color: #f8bbd0;
-  margin-bottom: 10px;
-}
-
-
-.why-us-section {
   box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.05);
 }
 
-.why-us-section {
-  margin-bottom: 40px;
-}
+
 
 
 /* CTA Section */
 .cta-section {
   background: linear-gradient(to bottom, #ba68c8, #ce93d8);
   color: #4a148c;
-  padding: 60px 0;
+  padding: 60px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(156, 39, 176, 0.15);
+  width: 80%;
+  margin: 0 auto;
 }
-
 
 .cta-section h3 {
   font-weight: bold;
@@ -126,10 +114,7 @@
   color: #6a1b9a;
 }
 
-.cta-section .btn-outline-dark:hover {
-  background-color: #6a1b9a;
-  color: white;
-}
+
 
 .cta-section .btn-outline-dark:hover {
   background-color: #4a148c;
@@ -137,10 +122,6 @@
   color: white;
 }
 
-.cta-section {
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-}
 
 
 /* Service images style */
@@ -169,4 +150,28 @@
 .why-us-section i {
   color: #f8bbd0;
   margin-bottom: 10px;
+}
+
+.why-us-section {
+  background: linear-gradient(rgba(123, 31, 162, 0.85), rgba(156, 39, 176, 0.85)),
+              url('../img/why_bg.jpg') no-repeat center center;
+  background-size: cover;
+  padding: 60px 0;
+  color: white;
+  margin-bottom: 40px;
+  box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.05);
+}
+
+.feature-img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border: 3px solid #f3e5f5;
+  transition: transform 0.3s ease;
+}
+
+.feature-img:hover {
+  transform: scale(1.05);
 }
