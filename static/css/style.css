@@ -1,0 +1,49 @@
+/* General */
+body {
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Hero Section */
+section.bg-light {
+  background-color: #f3e6f9;
+  color: #4a235a;
+}
+
+/* Buttons */
+.btn-dark {
+  background-color: #6f42c1;
+  border-color: #6f42c1;
+}
+.btn-dark:hover {
+  background-color: #5a329f;
+  border-color: #5a329f;
+}
+
+/* Outlined button */
+.btn-outline-dark {
+  color: #6f42c1;
+  border-color: #6f42c1;
+}
+.btn-outline-dark:hover {
+  background-color: #6f42c1;
+  color: white;
+}
+
+/* Section Titles */
+h1, h2, h3 {
+  color: #4a235a;
+}
+
+/* Footer */
+footer {
+  background-color: #f3e6f9;
+  color: #4a235a;
+}
+
+/* Social Icons */
+footer i {
+  color: #6f42c1;
+}
+footer i:hover {
+  color: #5a329f;
+}
