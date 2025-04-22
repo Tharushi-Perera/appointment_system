@@ -1,0 +1,135 @@
+/* Fix: Service images appearance */
+.services-section img.rounded-circle {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border: 3px solid #9c27b0;
+  box-shadow: 0 4px 10px rgba(156, 39, 176, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.services-section img.rounded-circle:hover {
+  transform: scale(1.05);
+}
+
+/* Purple topbar */
+.topbar {
+  background-color: #ab47bc; /* soft vibrant purple */
+  color: white;
+}
+
+/* Purple navbar */
+.purple-navbar {
+  background-color: #ba68c8; /* softer purple to match hero */
+}
+
+.purple-navbar .nav-link {
+  color: white !important;
+  font-weight: 500;
+}
+
+.purple-navbar .nav-link:hover {
+  color: #f3e5f5 !important;
+}
+
+/* Footer styling */
+.custom-footer {
+  background-color: #9c27b0; /* matching with navbar */
+  color: white;
+}
+
+.custom-footer a {
+  color: #f3e5f5;
+}
+
+.custom-footer p {
+  font-size: 0.875rem;
+  opacity: 0.85;
+}
+
+
+/* Hero Banner Section */
+.hero-section {
+  background: linear-gradient(to right, #ce93d8, #ba68c8);
+  color: white;
+  padding: 80px 0;
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.hero-section .btn-dark {
+  background-color: #6a1b9a;
+  border-color: #6a1b9a;
+}
+
+.hero-section .btn-dark:hover {
+  background-color: #4a148c;
+}
+
+/* Services Overview Section */
+.services-section h5 {
+  color: #6a1b9a;
+  margin-top: 15px;
+}
+
+/* Why Choose Us section */
+.why-us-section {
+  background: linear-gradient(to bottom, #7b1fa2, #9c27b0);
+  padding: 60px 0;
+  color: white;
+}
+
+
+.why-us-section h2 {
+  color: #f3e5f5;
+}
+
+why-us-section i {
+  color: #f8bbd0;
+  margin-bottom: 10px;
+}
+
+
+.why-us-section {
+  box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.05);
+}
+
+
+/* CTA Section */
+.cta-section {
+  background: linear-gradient(to bottom, #ba68c8, #ce93d8);
+  color: #4a148c;
+  padding: 60px 0;
+}
+
+
+.cta-section h3 {
+  font-weight: bold;
+}
+
+.cta-section .btn-outline-dark {
+  border-color: #6a1b9a;
+  color: #6a1b9a;
+}
+
+.cta-section .btn-outline-dark:hover {
+  background-color: #6a1b9a;
+  color: white;
+}
+
+.cta-section .btn-outline-dark:hover {
+  background-color: #4a148c;
+  border-color: #4a148c;
+  color: white;
+}
+
+
+/* Service images style */
+.rounded-circle {
+  border: 3px solid #9c27b0;
+  box-shadow: 0 4px 10px rgba(156, 39, 176, 0.2);
+}
+
