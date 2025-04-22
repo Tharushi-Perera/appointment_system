@@ -3,7 +3,7 @@
   width: 150px;
   height: 150px;
   object-fit: cover;
-  border: 3px solid #9c27b0;
+  border: 3px solid #ba68c8;
   box-shadow: 0 4px 10px rgba(156, 39, 176, 0.3);
   transition: transform 0.3s ease;
 }
@@ -34,9 +34,11 @@
 
 /* Footer styling */
 .custom-footer {
-  background-color: #9c27b0; /* matching with navbar */
+  background-color: #9c27b0;
   color: white;
+  padding-top: 20px;
 }
+
 
 .custom-footer a {
   color: #f3e5f5;
@@ -50,9 +52,12 @@
 
 /* Hero Banner Section */
 .hero-section {
-  background: linear-gradient(to right, #ce93d8, #ba68c8);
+  background: linear-gradient(rgba(186, 104, 200, 0.7), rgba(206, 147, 216, 0.7)),
+              url('../img/salon_hero.png') no-repeat center center;
+  background-size: cover;
   color: white;
-  padding: 80px 0;
+  padding: 100px 0;
+  text-align: center;
 }
 
 .hero-section h1 {
@@ -80,14 +85,16 @@
   background: linear-gradient(to bottom, #7b1fa2, #9c27b0);
   padding: 60px 0;
   color: white;
+  margin-bottom: 40px;
 }
+
 
 
 .why-us-section h2 {
   color: #f3e5f5;
 }
 
-why-us-section i {
+.why-us-section i {
   color: #f8bbd0;
   margin-bottom: 10px;
 }
@@ -95,6 +102,10 @@ why-us-section i {
 
 .why-us-section {
   box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.05);
+}
+
+.why-us-section {
+  margin-bottom: 40px;
 }
 
 
@@ -126,6 +137,11 @@ why-us-section i {
   color: white;
 }
 
+.cta-section {
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
 
 /* Service images style */
 .rounded-circle {
@@ -133,3 +149,24 @@ why-us-section i {
   box-shadow: 0 4px 10px rgba(156, 39, 176, 0.2);
 }
 
+/* Fix spacing under CTA */
+.cta-section {
+  background: linear-gradient(to bottom, #ba68c8, #ce93d8);
+  color: #4a148c;
+  padding: 60px 0;
+  margin-bottom: 40px;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Slightly larger CTA button */
+.cta-section .btn-outline-dark {
+  padding: 12px 28px;
+  font-size: 1.1rem;
+}
+
+/* Fix icon selector */
+.why-us-section i {
+  color: #f8bbd0;
+  margin-bottom: 10px;
+}
