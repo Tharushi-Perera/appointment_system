@@ -169,3 +169,17 @@
 .feature-img:hover {
   transform: scale(1.05);
 }
+
+.quote-banner {
+  background-color: #f3e5f5;
+  padding: 15px 20px;
+  margin: 10px auto 70px;
+  text-align: center;
+  color: #6a1b9a;
+  font-style: italic;
+  font-size: 1.15rem;
+  max-width: 80%;
+  border-radius: 12px;
+  border: 1px solid #e1bee7;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
