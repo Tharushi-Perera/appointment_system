@@ -1,3 +1,17 @@
+/* Fix: Service images appearance */
+.services-section img.rounded-circle {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border: 3px solid #9c27b0;
+  box-shadow: 0 4px 10px rgba(156, 39, 176, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.services-section img.rounded-circle:hover {
+  transform: scale(1.05);
+}
+
 /* Purple topbar */
 .topbar {
   background-color: #ab47bc; /* soft vibrant purple */
@@ -56,20 +70,31 @@
   margin-top: 15px;
 }
 
-/* Why Choose Us Section */
-.why-section {
-  background-color: #6a1b9a;
+/* Why Choose Us section */
+.why-us-section {
+  background-color: #7b1fa2; /* rich purple */
+  padding: 60px 0;
   color: white;
 }
 
-.why-section i {
+.why-us-section h2 {
   color: #f3e5f5;
 }
 
+.why-us-section i {
+  color: #f8bbd0;
+}
+
+
+
 /* CTA Section */
 .cta-section {
-  background-color: #f3e5f5;
+  background: linear-gradient(to right, #ce93d8, #ba68c8);
   color: #4a148c;
+}
+
+.cta-section h3 {
+  font-weight: bold;
 }
 
 .cta-section .btn-outline-dark {
@@ -81,3 +106,10 @@
   background-color: #6a1b9a;
   color: white;
 }
+
+/* Service images style */
+.rounded-circle {
+  border: 3px solid #9c27b0;
+  box-shadow: 0 4px 10px rgba(156, 39, 176, 0.2);
+}
+
