@@ -1,0 +1,24 @@
+[33mbc79a64[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mbooking-system[m[33m)[m HEAD@{0}: commit: Completed merge from origin/sayuri
+[33m3b734b2[m HEAD@{1}: rebase (finish): returning to refs/heads/booking-system
+[33m3b734b2[m HEAD@{2}: rebase (continue): Added the homepage and services pages
+[33m8a385db[m HEAD@{3}: rebase (pick): Add base navbar and footer
+[33m11fd7e4[m HEAD@{4}: rebase (continue): Added homepage and services pages (html)
+[33m4bd4c46[m HEAD@{5}: pull --rebase origin main (start): checkout 4bd4c4698415e45bf861355f65f3ea96086c7d3c
+[33m4b19cad[m HEAD@{6}: commit (merge): Completed merge from origin/sayuri
+[33mc07f9f6[m HEAD@{7}: reset: moving to HEAD
+[33mc07f9f6[m HEAD@{8}: merge origin/sayuri: updating HEAD
+[33mc07f9f6[m HEAD@{9}: reset: moving to HEAD
+[33mc07f9f6[m HEAD@{10}: reset: moving to HEAD
+[33mc07f9f6[m HEAD@{11}: merge origin/sayuri: updating HEAD
+[33mc07f9f6[m HEAD@{12}: pull origin main: Fast-forward
+[33m56739a2[m[33m ([m[1;31morigin/booking-system[m[33m)[m HEAD@{13}: rebase (finish): returning to refs/heads/booking-system
+[33m56739a2[m[33m ([m[1;31morigin/booking-system[m[33m)[m HEAD@{14}: rebase (pick): Added base.html layout and other templates for booking system
+[33md224083[m HEAD@{15}: rebase (continue): Added base.html layout and other templates for booking system
+[33mc5cb748[m HEAD@{16}: pull origin booking-system --rebase (start): checkout c5cb748338dddcabb84f30712857bca6c8c3f49c
+[33m5f6aadf[m HEAD@{17}: commit: Added base.html layout and other templates for booking system
+[33mbd2e8c7[m HEAD@{18}: commit: Added base.html layout and other templates for booking system
+[33m11ebd82[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{19}: checkout: moving from main to booking-system
+[33m11ebd82[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{20}: commit: Added models, forms, and URL setup for booking system
+[33mb69d52f[m HEAD@{21}: commit: Started Django project
+[33md0cb531[m HEAD@{22}: Branch: renamed refs/heads/master to refs/heads/main
+[33md0cb531[m HEAD@{24}: commit (initial): Initial project setup
