@@ -8,7 +8,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('booking.urls', namespace='booking')),
     path('', include('accounts.urls')),
-    path('', views.home, name='home'),  # ✅ This should be from booking.views
+    path('', views.home, name='home'),
+    path('services/', include('salon_services.urls')),
 ]
 
 # ✅ This enables serving static files like CSS and images in development
