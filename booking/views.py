@@ -19,7 +19,7 @@ def home(request):
     return render(request, 'home.html', {'listing_services': services})
 
 
-@login_required
+#@login_required
 def book_appointment(request):
     form = AppointmentForm()
     time_slots = []
