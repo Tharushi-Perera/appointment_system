@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'booking',
     'accounts',
+    'salon_services',
 ]
 
 MIDDLEWARE = [
@@ -56,8 +57,6 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        #'DIRS': [os.path.join(BASE_DIR, 'booking', 'templates')],
-        #'DIRS': [BASE_DIR / 'core' / 'templates'],
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
