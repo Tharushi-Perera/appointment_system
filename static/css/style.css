@@ -1,78 +1,83 @@
-/* General */
-body {
-  font-family: 'Segoe UI', sans-serif;
-}
-
-/* Hero Section */
-section.bg-light {
-  background-color: #f3e6f9;
-  color: #4a235a;
-}
-
-/* Buttons */
-.btn-dark {
-  background-color: #6f42c1;
-  border-color: #6f42c1;
-}
-.btn-dark:hover {
-  background-color: #5a329f;
-  border-color: #5a329f;
-}
-
-/* Outlined button */
-.btn-outline-dark {
-  color: #6f42c1;
-  border-color: #6f42c1;
-}
-.btn-outline-dark:hover {
-  background-color: #6f42c1;
+/* Purple topbar */
+.topbar {
+  background-color: #ab47bc; /* soft vibrant purple */
   color: white;
 }
 
-/* Section Titles */
-h1, h2, h3 {
-  color: #4a235a;
+/* Purple navbar */
+.purple-navbar {
+  background-color: #ba68c8; /* softer purple to match hero */
 }
 
-/* Footer */
-footer {
-  background-color: #f3e6f9;
-  color: #4a235a;
+.purple-navbar .nav-link {
+  color: white !important;
+  font-weight: 500;
 }
 
-/* Social Icons */
-footer i {
-  color: #6f42c1;
-}
-footer i:hover {
-  color: #5a329f;
+.purple-navbar .nav-link:hover {
+  color: #f3e5f5 !important;
 }
 
+/* Footer styling */
+.custom-footer {
+  background-color: #9c27b0; /* matching with navbar */
+  color: white;
+}
+
+.custom-footer a {
+  color: #f3e5f5;
+}
+
+
+/* Hero Banner Section */
 .hero-section {
-  background-color: #f3e6f9;
-  color: #5a189a;
-}
-.hero-section h1 {
-  color: #6f42c1;
-}
-.hero-section .btn {
-  background-color: #7b2cbf;
+  background: linear-gradient(to right, #ce93d8, #ba68c8);
   color: white;
-  border: none;
-}
-.hero-section .btn:hover {
-  background-color: #5a189a;
+  padding: 80px 0;
 }
 
-.final-cta {
-  background-color: #f1e1ff;
-  color: #4a005e;
+.hero-section h1 {
+  font-size: 3rem;
+  font-weight: 700;
 }
-.final-cta .btn {
-  border-color: #7b2cbf;
-  color: #7b2cbf;
+
+.hero-section .btn-dark {
+  background-color: #6a1b9a;
+  border-color: #6a1b9a;
 }
-.final-cta .btn:hover {
-  background-color: #7b2cbf;
+
+.hero-section .btn-dark:hover {
+  background-color: #4a148c;
+}
+
+/* Services Overview Section */
+.services-section h5 {
+  color: #6a1b9a;
+  margin-top: 15px;
+}
+
+/* Why Choose Us Section */
+.why-section {
+  background-color: #6a1b9a;
+  color: white;
+}
+
+.why-section i {
+  color: #f3e5f5;
+}
+
+/* CTA Section */
+.cta-section {
+  background-color: #f3e5f5;
+  color: #4a148c;
+}
+
+.cta-section .btn-outline-dark {
+  border-color: #6a1b9a;
+  color: #6a1b9a;
+}
+
+.cta-section .btn-outline-dark:hover {
+  background-color: #6a1b9a;
   color: white;
 }
