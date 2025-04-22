@@ -1,9 +1,63 @@
 {% extends "base.html" %}
-
 {% block title %}Our Services{% endblock %}
 
 {% block content %}
-<section class="section has-background-light">
+<style>
+  .category-card {
+    border: 2px solid #c1a4e8;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(169, 111, 255, 0.15);
+    background: linear-gradient(to bottom right, #fdf5ff, #f0e0ff);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  .category-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .category-title {
+    color: #6a1b9a;
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+
+  .category-desc {
+    background-color: #e6d6ff;
+    padding: 12px;
+    border-radius: 8px;
+    margin: 15px 0;
+    color: #4a0072;
+    font-weight: 500;
+  }
+
+  .category-image {
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 15px;
+  }
+
+  .btn-purple {
+    background-color: #9c27b0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: background 0.3s ease;
+  }
+
+  .btn-purple:hover {
+    background-color: #7b1fa2;
+  }
+
+  .title.is-size-2 {
+    color: #6a1b9a;
+  }
+</style>
+
+<section class="section">
   <div class="container">
     <h1 class="title has-text-centered is-size-2 mb-6">Explore Our Salon Services</h1>
 
@@ -11,82 +65,71 @@
 
       <!-- Hair Services -->
       <div class="column is-4">
-        <div class="card">
-          <div class="card-image">
+        <div class="category-card">
+          <p class="category-title">Hair Services</p>
+          <p class="category-desc">Haircuts, Styling, Coloring & Treatments</p>
+          <div class="category-image">
             <figure class="image is-4by3">
-              <img src="https://hairbyalla.com/wp-content/uploads/2016/03/hair-services-portland.jpg
-" alt="Hair Services">
+              <img src="https://hairbyalla.com/wp-content/uploads/2016/03/hair-services-portland.jpg" alt="Hair Services">
             </figure>
           </div>
-          <div class="card-content has-text-centered">
-            <p class="title is-4 has-text-link">Hair Services</p>
-            <p class="subtitle is-6">Haircuts, Styling, Coloring & Treatments</p>
-            <a href="{% url 'hair_services' %}" class="button is-link is-outlined mt-3">View Details</a>
-          </div>
+          <a href="{% url 'hair_services' %}" class="btn-purple">More Details</a>
         </div>
       </div>
 
       <!-- Skin Services -->
       <div class="column is-4">
-        <div class="card">
-          <div class="card-image">
+        <div class="category-card">
+          <p class="category-title">Skin Services</p>
+          <p class="category-desc">Facials, Waxing, De-Tan Treatments</p>
+          <div class="category-image">
             <figure class="image is-4by3">
               <img src="https://via.placeholder.com/600x400?text=Skin+Services" alt="Skin Services">
             </figure>
           </div>
-          <div class="card-content has-text-centered">
-            <p class="title is-4 has-text-success">Skin Services</p>
-            <p class="subtitle is-6">Facials, Waxing, De-Tan Treatments</p>
-            <a href="{% url 'skin_services' %}" class="button is-success is-outlined mt-3">View Details</a>
-          </div>
+          <a href="{% url 'skin_services' %}" class="btn-purple">More Details</a>
         </div>
       </div>
 
       <!-- Body Services -->
       <div class="column is-4">
-        <div class="card">
-          <div class="card-image">
+        <div class="category-card">
+          <p class="category-title">Body Services</p>
+          <p class="category-desc">Massages, Scrubs, Polish & More</p>
+          <div class="category-image">
             <figure class="image is-4by3">
               <img src="https://via.placeholder.com/600x400?text=Body+Services" alt="Body Services">
             </figure>
           </div>
-          <div class="card-content has-text-centered">
-            <p class="title is-4 has-text-warning-dark">Body Services</p>
-            <p class="subtitle is-6">Massages, Scrubs, Polish & More</p>
-            <a href="{% url 'body_services' %}" class="button is-warning is-outlined mt-3">View Details</a>
-          </div>
+          <a href="{% url 'body_services' %}" class="btn-purple">More Details</a>
         </div>
       </div>
 
       <!-- Nail Services -->
       <div class="column is-4">
-        <div class="card">
-          <div class="card-image">
+        <div class="category-card">
+          <p class="category-title">Nail Services</p>
+          <p class="category-desc">Manicures, Pedicures, Nail Art</p>
+          <div class="category-image">
             <figure class="image is-4by3">
               <img src="https://via.placeholder.com/600x400?text=Nail+Services" alt="Nail Services">
             </figure>
           </div>
-          <div class="card-content has-text-centered">
-            <p class="title is-4 has-text-danger">Nail Services</p>
-            <p class="subtitle is-6">Manicures, Pedicures, Nail Art</p>
-            <a href="{% url 'nail_services' %}" class="button is-danger is-outlined mt-3">View Details</a>
-          </div>
+          <a href="{% url 'nail_services' %}" class="btn-purple">More Details</a>
         </div>
       </div>
 
       <!-- Bridal Services -->
       <div class="column is-4">
-        <div class="card">
-          <div class="card-image">
+        <div class="category-card">
+          <p class="category-title">Bridal Services</p>
+          <p class="category-desc">Makeup, Mehendi & Saree Draping</p>
+          <div class="category-image">
             <figure class="image is-4by3">
               <img src="https://via.placeholder.com/600x400?text=Bridal+Services" alt="Bridal Services">
             </figure>
           </div>
-          <div class="card-content has-text-centered">
-            <p class="title is-4 has-text-purple">Bridal Services</p>
-            <p class="subtitle is-6">Makeup, Mehendi & Saree Draping</p>
-            <a href="{% url 'bridal_services' %}" class="button is-link is-light mt-3">View Details</a>
-          </div>
+          <a href="{% url 'bridal_services' %}" class="btn-purple">More Details</a>
         </div>
       </div>
 
