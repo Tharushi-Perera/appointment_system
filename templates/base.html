@@ -30,7 +30,9 @@
 <!-- ✅ Navbar -->
 <nav class="navbar navbar-expand-lg sticky-top shadow-sm purple-navbar">
   <div class="container">
-    <a class="navbar-brand fw-bold" href="/">GlamSalon</a>
+    <a class="navbar-brand" href="{% url 'home' %}">
+  <img src="{% static 'img/glamsalon_logo.png' %}" alt="GlamSalon Logo" height="40">
+</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
