@@ -1,10 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Our Services</h2>
-<ul>
-  {% for service in services %}
-    <li><strong>{{ service.name }}</strong>: {{ service.description }} — ${{ service.price }}</li>
+<h2 class="mb-4 text-center">Our Services</h2>
+<div class="row">
+  {% for service in listing_services %}
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">{{ service.name }}</h5>
+          <p class="card-text">{{ service.description }}</p>
+          <p class="card-text"><strong>${{ service.price }}</strong></p>
+          <a href="{% url 'booking:book_appointment' %}" class="btn btn-primary">Book Now</a>
+        </div>
+      </div>
+    </div>
   {% endfor %}
-</ul>
-<a href="{% url 'booking:book_appointment' %}">Book an Appointment</a>
+</div>
 {% endblock %}
+
+
