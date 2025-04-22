@@ -47,3 +47,32 @@ footer i {
 footer i:hover {
   color: #5a329f;
 }
+
+.hero-section {
+  background-color: #f3e6f9;
+  color: #5a189a;
+}
+.hero-section h1 {
+  color: #6f42c1;
+}
+.hero-section .btn {
+  background-color: #7b2cbf;
+  color: white;
+  border: none;
+}
+.hero-section .btn:hover {
+  background-color: #5a189a;
+}
+
+.final-cta {
+  background-color: #f1e1ff;
+  color: #4a005e;
+}
+.final-cta .btn {
+  border-color: #7b2cbf;
+  color: #7b2cbf;
+}
+.final-cta .btn:hover {
+  background-color: #7b2cbf;
+  color: white;
+}

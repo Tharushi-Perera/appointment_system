@@ -1,10 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-{% block content %}
 <!-- Hero Banner Section -->
-<section class="text-center py-5 bg-light">
+<section class="text-center py-5 hero-section">
   <div class="container">
     <h1 class="display-4 fw-bold">Redefining Beauty & Elegance</h1>
     <p class="lead">Professional salon care with a personalized touch — book your perfect beauty experience today.</p>
@@ -12,6 +10,58 @@
   </div>
 </section>
 
+<!-- Services Overview Section -->
+<section class="container py-5">
+  <div class="row text-center">
+    <div class="col-md-4 mb-4">
+      <img src="https://via.placeholder.com/150" class="rounded-circle mb-3" alt="Hair">
+      <h5 class="fw-bold">Hair Styling</h5>
+      <p>Precision cuts, coloring, and treatments tailored to your unique style.</p>
+    </div>
+    <div class="col-md-4 mb-4">
+      <img src="https://via.placeholder.com/150" class="rounded-circle mb-3" alt="Facials">
+      <h5 class="fw-bold">Skin & Facials</h5>
+      <p>Rejuvenating facials and treatments for glowing, healthy skin.</p>
+    </div>
+    <div class="col-md-4 mb-4">
+      <img src="https://via.placeholder.com/150" class="rounded-circle mb-3" alt="Bridal">
+      <h5 class="fw-bold">Bridal Packages</h5>
+      <p>Luxury bridal looks for your special day — flawless from head to toe.</p>
+    </div>
+  </div>
+</section>
 
+<!-- Why Choose Us Section -->
+<section class="bg-dark text-white py-5">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-4">Why Choose Glam Salon?</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <i class="fas fa-star fa-2x mb-2"></i>
+        <h6 class="fw-bold">Top-rated Stylists</h6>
+        <p>Our talented team is committed to giving you a look you'll love.</p>
+      </div>
+      <div class="col-md-4">
+        <i class="fas fa-leaf fa-2x mb-2"></i>
+        <h6 class="fw-bold">Premium Products</h6>
+        <p>We use only high-quality, skin-friendly beauty products.</p>
+      </div>
+      <div class="col-md-4">
+        <i class="fas fa-clock fa-2x mb-2"></i>
+        <h6 class="fw-bold">Flexible Booking</h6>
+        <p>Choose your time, date, and service easily through our platform.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="text-center py-5 final-cta">
+  <div class="container">
+    <h3 class="fw-bold">Unleash Your True Beauty</h3>
+    <p>Let us help you feel confident and radiant every day.</p>
+    <a href="/services/" class="btn btn-outline-dark btn-lg">Explore Our Services</a>
+  </div>
+</section>
 
 {% endblock %}
