@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- 🌸 Banner with Background -->
+<section class="py-5 text-center text-white" style="
+  background: url('/static/img/bg_offers.jpg') center/cover no-repeat;
+  border-radius: 12px;">
+  <div class="container" style="background: rgba(142, 36, 170, 0.6); border-radius: 12px; padding: 40px 20px;">
+    <h2 class="fw-bold display-5">Special Offers Just for You</h2>
+    <p class="lead">Enjoy amazing beauty services at the best prices in town!</p>
+  </div>
+</section>
+
+<!-- 🎠 Offers Slider Section -->
+<div class="py-5" style="background: url('/static/img/staticimgbg_offers.png') center/cover fixed;">
+  <div id="offerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+    <div class="carousel-inner">
+
+      {% comment %} SLIDE TEMPLATE {% endcomment %}
+      {% for i in "12345"|make_list %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %} text-center">
+        <div class="offer-card bg-white rounded shadow-lg p-4 mx-auto bounce-in" style="max-width: 420px;">
+
+
+           {% if i == "1" or i == "3" %}
+            <span class="ribbon hot">🔥 HOT</span>
+           {% endif %}
+
+          <img src="/static/img/offer{{ i }}.png" alt="Offer {{ i }}"
+               class="img-fluid rounded" style="aspect-ratio: 3 / 4; height: 350px; object-fit: cover; width: 100%;">
+
+          <h4 class="mt-3">
+            {% if i == "1" %}💇 Hair Styling
+            {% elif i == "2" %}💆‍♀️ Facial Glow Pack
+            {% elif i == "3" %}🌸 Spring Glow Special
+            {% elif i == "4" %}👰 Bridal Beauty
+            {% elif i == "5" %}🧒 Kids Cut Combo
+            {% endif %}
+          </h4>
+          <p class="text-muted small">
+            {% if i == "1" %}Get 20% off on your first visit!
+            {% elif i == "2" %}Buy 2 facials, get 1 free!
+            {% elif i == "3" %}Free face mask with every facial this season!
+            {% elif i == "4" %}15% off on our premium bridal makeover packages.
+            {% elif i == "5" %}Free kids haircut when mom gets a styling!
+            {% endif %}
+          </p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- 🔘 Carousel Indicators -->
+    <div class="carousel-indicators">
+      {% for i in "12345"|make_list %}
+        <button type="button" data-bs-target="#offerCarousel" data-bs-slide-to="{{ forloop.counter0 }}"
+          class="{% if forloop.first %}active{% endif %}"></button>
+      {% endfor %}
+    </div>
+
+    <!-- ⬅️➡️ Carousel Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#offerCarousel" data-bs-slide="prev" style="filter: brightness(0.9);">
+      <span class="carousel-control-prev-icon" style="background-color: rgba(0,0,0,0.3); border-radius: 50%;"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#offerCarousel" data-bs-slide="next" style="filter: brightness(0.9);">
+      <span class="carousel-control-next-icon" style="background-color: rgba(0,0,0,0.3); border-radius: 50%;"></span>
+    </button>
+  </div>
+</div>
+{% endblock %}

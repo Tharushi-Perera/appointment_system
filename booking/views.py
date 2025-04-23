@@ -67,6 +67,9 @@ def my_appointments(request):
     appointments = Appointment.objects.filter(user=request.user).order_by('-date')
     return render(request, 'booking/my_appointments.html', {'appointments': appointments})
 
+def offers(request):
+    return render(request, 'offers.html')
+  
 def get_subcategories(request):
     category_id = request.GET.get('category_id')
     subcategories = ServiceSubCategory.objects.filter(
@@ -78,6 +81,7 @@ def get_subcategories(request):
 
 def get_services(request):
     subcategory_id = request.GET.get('subcategory_id')
+
     services = Service.objects.filter(
         subcategory_id=subcategory_id,
         available=True
@@ -133,3 +137,4 @@ def view_cart(request):
             'date': item['date']
         })
     return render(request, 'booking/cart.html', {'services': services})
+
