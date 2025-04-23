@@ -2,67 +2,122 @@
 {% block title %}Hair Services - Your Salon{% endblock %}
 
 {% block content %}
+<style>
+  .hero-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: #fff;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+  }
+
+  .tagline-box {
+    background-color: #f3e5f5;
+    border: 1px solid #ce93d8;
+    padding: 15px 25px;
+    border-radius: 10px;
+    display: inline-block;
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: #6a1b9a;
+  }
+
+  .service-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px dotted #ccc;
+  }
+
+  .service-name {
+    font-weight: 500;
+    color: #4a148c;
+  }
+
+  .service-price {
+    font-weight: bold;
+    color: #6a1b9a;
+  }
+
+  .service-box {
+    padding: 20px;
+    background-color: #fdf5ff;
+    border-radius: 10px;
+    border: 1px solid #e1bee7;
+    margin-bottom: 2rem;
+  }
+
+  h2.title {
+    font-family: 'Playfair Display', serif;
+    color: #7b1fa2;
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+</style>
+
+<!-- Hero Banner -->
 <section class="hero is-medium is-primary is-bold" style="background-image: url('https://via.placeholder.com/1200x400?text=Hair+Care+Banner'); background-size: cover; background-position: center;">
   <div class="hero-body has-background-black-transparent">
     <div class="container has-text-centered">
-      <h1 class="title is-size-2 has-text-white">Hair Services</h1>
-      <h2 class="subtitle has-text-white">Styling. Treatment. Perfection.</h2>
+      <h1 class="hero-heading">Hair Services</h1>
+      <div class="tagline-box">Styling. Treatment. Perfection.</div>
     </div>
   </div>
 </section>
 
+<!-- Service Listings -->
 <section class="section">
   <div class="container">
 
     <!-- Haircuts -->
-    <h2 class="title is-4 has-text-link">Haircuts</h2>
-    <div class="box">
-      <div class="columns is-mobile is-vcentered"><div class="column">Ladies Haircut (Short)</div><div class="column has-text-right">Rs. 2,000</div></div>
-      <div class="columns is-mobile is-vcentered"><div class="column">Ladies Haircut (Medium)</div><div class="column has-text-right">Rs. 2,500</div></div>
-      <div class="columns is-mobile is-vcentered"><div class="column">Ladies Haircut (Long)</div><div class="column has-text-right">Rs. 3,000</div></div>
-      <div class="columns is-mobile is-vcentered"><div class="column">Gents Haircut</div><div class="column has-text-right">Rs. 1,800</div></div>
-      <div class="columns is-mobile is-vcentered"><div class="column">Kids Haircut (Under 12)</div><div class="column has-text-right">Rs. 1,200</div></div>
+    <h2 class="title">Haircuts</h2>
+    <div class="service-box">
+      <div class="service-row"><span class="service-name">Ladies Haircut (Short)</span><span class="service-price">Rs. 2,000</span></div>
+      <div class="service-row"><span class="service-name">Ladies Haircut (Medium)</span><span class="service-price">Rs. 2,500</span></div>
+      <div class="service-row"><span class="service-name">Ladies Haircut (Long)</span><span class="service-price">Rs. 3,000</span></div>
+      <div class="service-row"><span class="service-name">Gents Haircut</span><span class="service-price">Rs. 1,800</span></div>
+      <div class="service-row"><span class="service-name">Kids Haircut (Under 12)</span><span class="service-price">Rs. 1,200</span></div>
     </div>
 
     <!-- Styling -->
-    <h2 class="title is-4 has-text-link">Blow Dry & Styling</h2>
-    <div class="box">
-      <div class="columns is-mobile is-vcentered"><div class="column">Blow Dry (Short)</div><div class="column has-text-right">Rs. 2,000</div></div>
-      <div class="columns is-mobile is-vcentered"><div class="column">Blow Dry (Long)</div><div class="column has-text-right">Rs. 2,800</div></div>
-      <div class="columns is-mobile is-vcentered"><div class="column">Ironing (Per Section)</div><div class="column has-text-right">Rs. 1,200</div></div>
-      <div class="columns is-mobile is-vcentered"><div class="column">Curling (Full Hair)</div><div class="column has-text-right">Rs. 2,500</div></div>
+    <h2 class="title">Blow Dry & Styling</h2>
+    <div class="service-box">
+      <div class="service-row"><span class="service-name">Blow Dry (Short)</span><span class="service-price">Rs. 2,000</span></div>
+      <div class="service-row"><span class="service-name">Blow Dry (Long)</span><span class="service-price">Rs. 2,800</span></div>
+      <div class="service-row"><span class="service-name">Ironing (Per Section)</span><span class="service-price">Rs. 1,200</span></div>
+      <div class="service-row"><span class="service-name">Curling (Full Hair)</span><span class="service-price">Rs. 2,500</span></div>
     </div>
 
     <!-- Hair Spa -->
-    <h2 class="title is-4 has-text-link">Hair Spa</h2>
-    <div class="box">
-      <div class="columns is-mobile is-vcentered"><div class="column">Classic Hair Spa (Short)</div><div class="column has-text-right">Rs. 3,000</div></div>
-      <div class="columns is-mobile is-vcentered"><div class="column">Botox Hair Spa (Medium)</div><div class="column has-text-right">Rs. 5,000</div></div>
-      <div class="columns is-mobile is-vcentered"><div class="column">Moroccan Hair Spa (Long)</div><div class="column has-text-right">Rs. 7,000</div></div>
+    <h2 class="title">Hair Spa</h2>
+    <div class="service-box">
+      <div class="service-row"><span class="service-name">Classic Hair Spa (Short)</span><span class="service-price">Rs. 3,000</span></div>
+      <div class="service-row"><span class="service-name">Botox Hair Spa (Medium)</span><span class="service-price">Rs. 5,000</span></div>
+      <div class="service-row"><span class="service-name">Moroccan Hair Spa (Long)</span><span class="service-price">Rs. 7,000</span></div>
     </div>
 
     <!-- Straightening / Rebonding -->
-    <h2 class="title is-4 has-text-link">Straightening & Rebonding</h2>
-    <div class="box">
-      <div class="columns is-mobile is-vcentered"><div class="column">Permanent Straightening (Short)</div><div class="column has-text-right">Rs. 9,000</div></div>
-      <div class="columns is-mobile is-vcentered"><div class="column">Permanent Straightening (Long)</div><div class="column has-text-right">Rs. 15,000</div></div>
-      <div class="columns is-mobile is-vcentered"><div class="column">Rebonding (Medium)</div><div class="column has-text-right">Rs. 13,500</div></div>
+    <h2 class="title">Straightening & Rebonding</h2>
+    <div class="service-box">
+      <div class="service-row"><span class="service-name">Permanent Straightening (Short)</span><span class="service-price">Rs. 9,000</span></div>
+      <div class="service-row"><span class="service-name">Permanent Straightening (Long)</span><span class="service-price">Rs. 15,000</span></div>
+      <div class="service-row"><span class="service-name">Rebonding (Medium)</span><span class="service-price">Rs. 13,500</span></div>
     </div>
 
-    <!-- Advanced Treatments -->
-    <h2 class="title is-4 has-text-link">Advanced Hair Treatments</h2>
-    <div class="box">
-      <div class="columns is-mobile is-vcentered"><div class="column">Keratin Treatment – Short</div><div class="column has-text-right">Rs. 22,000</div></div>
-      <div class="columns is-mobile is-vcentered"><div class="column">Keratin Treatment – Long</div><div class="column has-text-right">Rs. 30,000</div></div>
-      <div class="columns is-mobile is-vcentered"><div class="column">Cysteine Treatment</div><div class="column has-text-right">Rs. 25,000</div></div>
+    <!-- Advanced -->
+    <h2 class="title">Advanced Hair Treatments</h2>
+    <div class="service-box">
+      <div class="service-row"><span class="service-name">Keratin Treatment – Short</span><span class="service-price">Rs. 22,000</span></div>
+      <div class="service-row"><span class="service-name">Keratin Treatment – Long</span><span class="service-price">Rs. 30,000</span></div>
+      <div class="service-row"><span class="service-name">Cysteine Treatment</span><span class="service-price">Rs. 25,000</span></div>
     </div>
 
-    <!-- Add-ons -->
-    <h2 class="title is-4 has-text-link">Add-On Services</h2>
-    <div class="box">
-      <div class="columns is-mobile is-vcentered"><div class="column">Hair Wash Only</div><div class="column has-text-right">Rs. 1,000</div></div>
-      <div class="columns is-mobile is-vcentered"><div class="column">Scalp Massage (15 min)</div><div class="column has-text-right">Rs. 2,000</div></div>
-      <div class="columns is-mobile is-vcentered"><div class="column">Hair Serum Application</div><div class="column has-text-right">Rs. 800</div></div>
+    <!-- Add-Ons -->
+    <h2 class="title">Add-On Services</h2>
+    <div class="service-box">
+      <div class="service-row"><span class="service-name">Hair Wash Only</span><span class="service-price">Rs. 1,000</span></div>
+      <div class="service-row"><span class="service-name">Scalp Massage (15 min)</span><span class="service-price">Rs. 2,000</span></div>
+      <div class="service-row"><span class="service-name">Hair Serum Application</span><span class="service-price">Rs. 800</span></div>
     </div>
 
   </div>

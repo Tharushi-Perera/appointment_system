@@ -1,6 +1,15 @@
-<form method="POST">{% csrf_token %}
-  <input name="username" placeholder="Username">
-  <input name="email" placeholder="Email">
-  <input name="password" type="password" placeholder="Password">
-  <button type="submit">Register</button>
-</form>
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Sign Up</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Sign up</button>
+  </form>
+
+  <p>Or sign up with Google:</p>
+  <a href="{% url 'social:begin' 'google-oauth2' %}">Continue with Google</a>
+
+  <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+{% endblock %}
