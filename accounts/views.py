@@ -54,6 +54,8 @@ def register_view(request):
     return render(request, 'accounts/register.html', {'form': form})
 
 
+def home_view(request):
+    return render(request, 'accounts/home.html')
 
 
 

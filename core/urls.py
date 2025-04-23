@@ -14,6 +14,7 @@ urlpatterns = [
     path('services/', include('salon_services.urls')),
     path('accounts/', include('accounts.urls')),         # your views
     path('accounts/', include('allauth.urls')),          # django-allauth (Google login, forgot password)
+
 ]
 
 # ✅ This enables serving static files like CSS and images in development
