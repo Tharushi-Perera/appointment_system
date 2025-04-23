@@ -1,69 +1,70 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<!-- Offers Banner -->
-<section class="py-5 text-center text-white" style="background: linear-gradient(to right, #8e24aa, #ce93d8); border-radius: 12px;">
-  <div class="container">
-    <h2 class="fw-bold">Special Offers Just for You</h2>
+<!-- 🌸 Banner with Background -->
+<section class="py-5 text-center text-white" style="
+  background: url('/static/img/bg_offers.jpg') center/cover no-repeat;
+  border-radius: 12px;">
+  <div class="container" style="background: rgba(142, 36, 170, 0.6); border-radius: 12px; padding: 40px 20px;">
+    <h2 class="fw-bold display-5">Special Offers Just for You</h2>
     <p class="lead">Enjoy amazing beauty services at the best prices in town!</p>
   </div>
 </section>
 
-<!-- Offers Slider Section -->
-<div id="offerCarousel" class="carousel slide py-5" data-bs-ride="carousel" data-bs-interval="4000">
-  <div class="carousel-inner container">
+<!-- 🎠 Offers Slider Section -->
+<div class="py-5" style="background: url('/static/img/staticimgbg_offers.png') center/cover fixed;">
+  <div id="offerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+    <div class="carousel-inner">
 
-    <!-- Slide 1 -->
-    <div class="carousel-item active text-center">
-      <img src="/static/img/offer1.png" class="d-block mx-auto rounded" style="max-height: 300px;" alt="Hair Styling Offer">
-      <h4 class="mt-3"> Hair Styling</h4>
-      <p>Get 20% off on your first visit!</p>
+      {% comment %} SLIDE TEMPLATE {% endcomment %}
+      {% for i in "12345"|make_list %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %} text-center">
+        <div class="offer-card bg-white rounded shadow-lg p-4 mx-auto bounce-in" style="max-width: 420px;">
+
+
+           {% if i == "1" or i == "3" %}
+            <span class="ribbon hot">🔥 HOT</span>
+           {% endif %}
+
+          <img src="/static/img/offer{{ i }}.png" alt="Offer {{ i }}"
+               class="img-fluid rounded" style="aspect-ratio: 3 / 4; height: 350px; object-fit: cover; width: 100%;">
+
+          <h4 class="mt-3">
+            {% if i == "1" %}💇 Hair Styling
+            {% elif i == "2" %}💆‍♀️ Facial Glow Pack
+            {% elif i == "3" %}🌸 Spring Glow Special
+            {% elif i == "4" %}👰 Bridal Beauty
+            {% elif i == "5" %}🧒 Kids Cut Combo
+            {% endif %}
+          </h4>
+          <p class="text-muted small">
+            {% if i == "1" %}Get 20% off on your first visit!
+            {% elif i == "2" %}Buy 2 facials, get 1 free!
+            {% elif i == "3" %}Free face mask with every facial this season!
+            {% elif i == "4" %}15% off on our premium bridal makeover packages.
+            {% elif i == "5" %}Free kids haircut when mom gets a styling!
+            {% endif %}
+          </p>
+        </div>
+      </div>
+      {% endfor %}
     </div>
 
-    <!-- Slide 2 -->
-    <div class="carousel-item text-center">
-      <img src="/static/img/offer2.jpg" class="d-block mx-auto rounded" style="max-height: 300px;" alt="Facial Glow Pack">
-      <h4 class="mt-3">️ Facial Glow Pack</h4>
-      <p>Buy 2 facials, get 1 free!</p>
+    <!-- 🔘 Carousel Indicators -->
+    <div class="carousel-indicators">
+      {% for i in "12345"|make_list %}
+        <button type="button" data-bs-target="#offerCarousel" data-bs-slide-to="{{ forloop.counter0 }}"
+          class="{% if forloop.first %}active{% endif %}"></button>
+      {% endfor %}
     </div>
 
-    <!-- Slide 3 -->
-    <div class="carousel-item text-center">
-      <img src="/static/img/offer3.png" class="d-block mx-auto rounded" style="max-height: 300px;" alt="Spring Glow">
-      <h4 class="mt-3"> Spring Glow Special</h4>
-      <p>Free face mask with every facial this season!</p>
-    </div>
-
-    <!-- Slide 4 -->
-    <div class="carousel-item text-center">
-      <img src="/static/img/offer4.png" class="d-block mx-auto rounded" style="max-height: 300px;" alt="Bridal Beauty">
-      <h4 class="mt-3"> Bridal Beauty</h4>
-      <p>15% off on our premium bridal makeover packages.</p>
-    </div>
-
-    <!-- Slide 5 -->
-    <div class="carousel-item text-center">
-      <img src="/static/img/offer5.jpg" class="d-block mx-auto rounded" style="max-height: 300px;" alt="Kids Cut Offer">
-      <h4 class="mt-3"> Kids Cut Combo</h4>
-      <p>Free kids haircut when mom gets a styling!</p>
-    </div>
+    <!-- ⬅️➡️ Carousel Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#offerCarousel" data-bs-slide="prev" style="filter: brightness(0.9);">
+      <span class="carousel-control-prev-icon" style="background-color: rgba(0,0,0,0.3); border-radius: 50%;"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#offerCarousel" data-bs-slide="next" style="filter: brightness(0.9);">
+      <span class="carousel-control-next-icon" style="background-color: rgba(0,0,0,0.3); border-radius: 50%;"></span>
+    </button>
   </div>
-
-  <!-- ✅ Carousel Indicators -->
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#offerCarousel" data-bs-slide-to="0" class="active"></button>
-    <button type="button" data-bs-target="#offerCarousel" data-bs-slide-to="1"></button>
-    <button type="button" data-bs-target="#offerCarousel" data-bs-slide-to="2"></button>
-    <button type="button" data-bs-target="#offerCarousel" data-bs-slide-to="3"></button>
-    <button type="button" data-bs-target="#offerCarousel" data-bs-slide-to="4"></button>
-  </div>
-
-  <!-- Carousel Controls -->
-  <button class="carousel-control-prev" type="button" data-bs-target="#offerCarousel" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#offerCarousel" data-bs-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </button>
 </div>
 {% endblock %}
