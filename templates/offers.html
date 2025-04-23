@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Header Banner -->
+<section class="py-5 text-center text-white" style="background: linear-gradient(to right, #8e24aa, #ce93d8); border-radius: 12px; margin: 20px;">
+  <div class="container">
+    <h2 class="fw-bold">Special Offers Just for You</h2>
+    <p class="lead">Enjoy amazing beauty services at the best prices in town!</p>
+  </div>
+</section>
+
+<!-- Offer Cards Section -->
+<section class="offer-cards container py-5">
+  <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
+
+    <!-- 💇 Hair Styling -->
+    <div class="col">
+      <div class="card offer-card text-center">
+        <div class="card-body">
+          <div class="offer-title">💇 Hair Styling</div>
+          <p class="card-text">Get 20% off on your first visit!</p>
+          <a href="/book/" class="btn btn-outline-dark mt-2">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 💆‍♀️ Facial Glow Pack -->
+    <div class="col">
+      <div class="card offer-card text-center">
+        <div class="card-body">
+          <div class="offer-title">💆‍♀️ Facial Glow Pack</div>
+          <p class="card-text">Buy 2 facials, get 1 free!</p>
+          <a href="/book/" class="btn btn-outline-dark mt-2">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 💅 Nail Art Combo -->
+    <div class="col">
+      <div class="card offer-card text-center">
+        <div class="card-body">
+          <div class="offer-title">💅 Nail Art Combo</div>
+          <p class="card-text">Free nail polish with any mani-pedi!</p>
+          <a href="/book/" class="btn btn-outline-dark mt-2">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🌸 Spring Glow Special -->
+    <div class="col">
+      <div class="card offer-card text-center">
+        <div class="card-body">
+          <div class="offer-title">🌸 Spring Glow Special</div>
+          <p class="card-text">Enjoy a free face mask with every facial this season!</p>
+          <a href="/book/" class="btn btn-outline-dark mt-2">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ⚡ Flash Friday Deal -->
+    <div class="col">
+      <div class="card offer-card text-center">
+        <div class="card-body">
+          <div class="offer-title">⚡ Flash Friday Deal</div>
+          <p class="card-text">10% off all bookings made on friday!</p>
+          <a href="/book/" class="btn btn-outline-dark mt-2">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 👰 Bridal Package -->
+    <div class="col">
+      <div class="card offer-card text-center">
+        <div class="card-body">
+          <div class="offer-title">👰 Bridal Package</div>
+          <p class="card-text">Flat 15% off for brides-to-be!</p>
+          <a href="/book/" class="btn btn-outline-dark mt-2">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

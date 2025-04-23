@@ -193,3 +193,40 @@
   border: 1px solid #e1bee7;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
+
+.offers-header {
+  background: linear-gradient(120deg, #ba68c8, #8e24aa);
+  color: white;
+  padding: 60px 20px;
+  border-radius: 0 0 20px 20px;
+}
+
+.offer-card {
+  background: #f3e5f5;
+  border: none;
+  box-shadow: 0 4px 8px rgba(155, 39, 176, 0.2);
+  transition: transform 0.2s;
+}
+
+.offer-card:hover {
+  transform: scale(1.05);
+  background: #e1bee7;
+}
+
+/* Hover effect on cards */
+.offer-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(106, 27, 154, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Icon + title aligned nicely */
+.offer-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
