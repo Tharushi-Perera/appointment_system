@@ -18,3 +18,5 @@ def nail_services(request):
 def bridal_services(request):
     return render(request, 'salon_services/bridal_services.html')
 
+
+
