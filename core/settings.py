@@ -41,7 +41,30 @@ INSTALLED_APPS = [
     'booking',
     'accounts',
     'salon_services',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
+
+SITE_ID = 1
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+# Allauth specific settings
+ACCOUNT_EMAIL_REQUIRED = True           # Makes email mandatory
+ACCOUNT_USERNAME_REQUIRED = False       # Makes username optional
+ACCOUNT_AUTHENTICATION_METHOD = 'email' # Auth using email instead of username
+ACCOUNT_EMAIL_VERIFICATION = 'optional' # Options: 'mandatory', 'optional', or 'none'
+ACCOUNT_UNIQUE_EMAIL = True             # Enforces unique email addresses
+ACCOUNT_SESSION_REMEMBER = True         # Keeps users logged in
+ACCOUNT_LOGOUT_ON_GET = True            # Simpler logout without confirmation
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -51,6 +74,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'

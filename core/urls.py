@@ -10,6 +10,7 @@ urlpatterns = [
     path('', include('accounts.urls')),
     path('', views.home, name='home'),
     path('services/', include('salon_services.urls')),
+    path('accounts/', include('allauth.urls')),
 ]
 
 # ✅ This enables serving static files like CSS and images in development

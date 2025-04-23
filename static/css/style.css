@@ -112,7 +112,17 @@
 }
 
 .cta-section .btn-outline-dark {
-  border-color: #6a1b9a;
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  border-color: white;
+  color: white;
+  background-color: #7b1fa2;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.cta-section .btn-outline-dark:hover {
+  background-color: white;
   color: #6a1b9a;
 }
 
@@ -183,3 +193,135 @@
   border: 1px solid #e1bee7;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
+
+.offers-header {
+  background: linear-gradient(120deg, #ba68c8, #8e24aa);
+  color: white;
+  padding: 60px 20px;
+  border-radius: 0 0 20px 20px;
+}
+
+.offer-card {
+  background: #f3e5f5;
+  border: none;
+  box-shadow: 0 4px 8px rgba(155, 39, 176, 0.2);
+  transition: transform 0.2s;
+}
+
+.offer-card:hover {
+  transform: scale(1.05);
+  background: #e1bee7;
+}
+
+/* Hover effect on cards */
+.offer-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(106, 27, 154, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Icon + title aligned nicely */
+.offer-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.carousel-indicators [data-bs-target] {
+  background-color: #ba68c8;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin: 0 6px;
+}
+
+.carousel-item img {
+  transition: transform 0.3s ease;
+}
+
+.carousel-item img:hover {
+  transform: scale(1.02);
+}
+
+.offer-caption {
+  background: linear-gradient(to right, #8e24aa, #ce93d8);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  font-weight: 500;
+}
+
+body {
+  background-image: url('/static/img/bg_pattern.jpg'); /* use a subtle classy bg image */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* 🌟 Offer card hover animation */
+.offer-card {
+  transition: all 0.3s ease;
+}
+
+.offer-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 30px rgba(142, 36, 170, 0.3);
+  cursor: pointer;
+}
+
+
+/* ✨ Slight image zoom on hover */
+.offer-card img {
+  transition: transform 0.3s ease;
+}
+
+.offer-card:hover img {
+  transform: scale(1.04);
+}
+
+.offer-card {
+  transition: all 0.3s ease;
+  transform: scale(1);
+}
+
+.offer-card:hover {
+  transform: scale(1.02) translateY(-8px);
+}
+
+.ribbon.hot {
+  position: absolute;
+  top: 10px;
+  left: -20px;
+  background: linear-gradient(45deg, #d32f2f, #ff6f61);
+  color: white;
+  padding: 4px 20px;
+  transform: rotate(-45deg);
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+@keyframes bounceInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-10px);
+  }
+  80% {
+    transform: translateY(5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.bounce-in {
+  animation: bounceInUp 0.8s ease-out;
+}
+
