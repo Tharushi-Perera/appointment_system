@@ -1,5 +1,40 @@
-<form method="POST">{% csrf_token %}
-  <input name="username" placeholder="Username">
-  <input name="password" type="password">
-  <button type="submit">Login</button>
-</form>
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | Salon App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f8f9fa;
+        }
+        .login-container {
+            max-width: 450px;
+            margin: 5% auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #ff6b81;
+        }
+        .btn-primary {
+            background-color: #ff6b81;
+            border-color: #ff6b81;
+        }
+        .btn-primary:hover {
+            background-color: #ff4757;
+            border-color: #ff4757;
+        }
+        .google-btn {
+            background-color: #4285F4;
+            color: white;
+        }
+    </style>
+</head>
+
+</html>
