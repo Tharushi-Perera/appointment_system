@@ -40,6 +40,14 @@
 <body>
     <div class="container login-container">
         <h3 class="text-center mb-4">Welcome Back 👋</h3>
+
+        <!-- 🔔 Message display block -->
+        {% if messages %}
+          {% for message in messages %}
+           <div class="alert alert-danger text-center">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+
         <form method="post">
             {% csrf_token %}
             <div class="mb-3">
