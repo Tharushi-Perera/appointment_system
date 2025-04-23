@@ -65,6 +65,9 @@ def my_appointments(request):
     appointments = Appointment.objects.filter(user=request.user).order_by('-date')
     return render(request, 'booking/my_appointments.html', {'appointments': appointments})
 
+def offers(request):
+    return render(request, 'offers.html')
+  
 def get_subcategories(request):
     category_id = request.GET.get('category_id')
     subcategories = ServiceSubCategory.objects.filter(category_id=category_id).values('id', 'name')
