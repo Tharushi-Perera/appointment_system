@@ -86,23 +86,96 @@
             <p>Choose your service and preferred date<br>to glam up!</p>
         </div>
 
-        <form method="post" style="width: 100%; max-width: 400px;">
+        <form method="post" style="width: 100%; max-width: 400px;" id="appointment-form">
             {% csrf_token %}
+
             <div class="form-group">
-                {{ form.service.label_tag }}<br>
+                {{ form.category.label_tag }}
+                {{ form.category|add_class:"form-control" }}
+            </div>
+
+            <div class="form-group">
+                {{ form.subcategory.label_tag }}
+                {{ form.subcategory|add_class:"form-control" }}
+            </div>
+
+            <div class="form-group">
+                {{ form.service.label_tag }}
                 {{ form.service|add_class:"form-control" }}
             </div>
+
             <div class="form-group">
-                {{ form.date.label_tag }}<br>
+                {{ form.date.label_tag }}
                 {{ form.date|add_class:"form-control" }}
             </div>
+
             <button type="submit" class="btn-book">Next</button>
         </form>
 
         <div class="booking-quote text-center mt-3">
-            “Be on time and let the glam begin!”
+            "Be on time and let the glam begin!"
         </div>
     </div>
 </div>
-{% endblock %}
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Category change handler
+    $('#id_category').change(function() {
+        var categoryId = $(this).val();
+        if (categoryId) {
+            // AJAX request to get subcategories
+            $.ajax({
+                url: '/get_subcategories/',
+                data: {
+                    'category_id': categoryId
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $('#id_subcategory').empty();
+                    $('#id_subcategory').append('<option value="">Select a subcategory</option>');
+                    $.each(data.subcategories, function(key, value) {
+                        $('#id_subcategory').append('<option value="' + value.id + '">' + value.name + '</option>');
+                    });
+
+                    // Clear services dropdown
+                    $('#id_service').empty();
+                    $('#id_service').append('<option value="">Select a service</option>');
+                }
+            });
+        } else {
+            $('#id_subcategory').empty();
+            $('#id_subcategory').append('<option value="">Select a subcategory</option>');
+            $('#id_service').empty();
+            $('#id_service').append('<option value="">Select a service</option>');
+        }
+    });
+
+    // Subcategory change handler
+    $('#id_subcategory').change(function() {
+        var subcategoryId = $(this).val();
+        if (subcategoryId) {
+            // AJAX request to get services
+            $.ajax({
+                url: '/get_services/',
+                data: {
+                    'subcategory_id': subcategoryId
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $('#id_service').empty();
+                    $('#id_service').append('<option value="">Select a service</option>');
+                    $.each(data.services, function(key, value) {
+                        $('#id_service').append('<option value="' + value.id + '">' + value.name + ' - Rs. ' + value.price + '</option>');
+                    });
+                }
+            });
+        } else {
+            $('#id_service').empty();
+            $('#id_service').append('<option value="">Select a service</option>');
+        }
+    });
+});
+</script>
+{% endblock %}
