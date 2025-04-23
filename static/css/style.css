@@ -253,12 +253,7 @@
   font-weight: 500;
 }
 
-body {
-  background-image: url('/static/img/bg_pattern.jpg'); /* use a subtle classy bg image */
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
+
 
 /* 🌟 Offer card hover animation */
 .offer-card {
