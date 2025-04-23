@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import TemplateView
+
 from booking import views  # ✅ Make sure to import views from booking
 from django.conf import settings
 from django.conf.urls.static import static
@@ -11,6 +13,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('services/', include('salon_services.urls')),
     path('accounts/', include('allauth.urls')),
+    path('stylists/', TemplateView.as_view(template_name='stylists.html'), name='stylists'),
 ]
 
 # ✅ This enables serving static files like CSS and images in development
