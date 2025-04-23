@@ -10,9 +10,18 @@ urlpatterns = [
     path('', include('accounts.urls')),
     path('', views.home, name='home'),
     path('services/', include('salon_services.urls')),
-    path('accounts/', include('allauth.urls')),
+    path('accounts/', include('accounts.urls')),         # your views
+    path('accounts/', include('allauth.urls')),          # django-allauth (Google login, forgot password)
 ]
 
 # ✅ This enables serving static files like CSS and images in development
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
+
+
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('accounts/', include('accounts.urls')),         # your views
+    path('accounts/', include('allauth.urls')),          # django-allauth (Google login, forgot password)
+]

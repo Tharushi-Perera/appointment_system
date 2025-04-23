@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import SignUpForm
+from django.contrib import messages
+
 
 def register_view(request):
     if request.method == 'POST':
@@ -17,15 +19,21 @@ def register_view(request):
 
 def login_view(request):
     if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
-        user = authenticate(username=username, password=password)
-        if user:
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        remember = request.POST.get('remember_me')
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
             login(request, user)
-            messages.success(request, "Logged in successfully.")
-            return redirect('dashboard')
+            if remember:
+                request.session.set_expiry(1209600)  # 2 weeks
+            else:
+                request.session.set_expiry(0)  # session ends on browser close
+            return redirect('home')  # or dashboard
         else:
-            messages.error(request, "Invalid credentials")
+            messages.error(request, "Invalid username or password")
+
     return render(request, "accounts/login.html")
 
 def logout_view(request):
@@ -44,3 +52,10 @@ def register_view(request):
     else:
         form = SignUpForm()
     return render(request, 'accounts/register.html', {'form': form})
+
+
+
+
+
+
+
