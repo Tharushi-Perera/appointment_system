@@ -84,5 +84,6 @@ def my_appointments(request):
     appointments = Appointment.objects.filter(user=request.user).order_by('-date')
     return render(request, 'booking/my_appointments.html', {'appointments': appointments})
 
-def offers_view(request):
+def offers(request):
     return render(request, 'offers.html')
+
