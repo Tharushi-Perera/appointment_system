@@ -1,27 +1,83 @@
 {% extends "base.html" %}
-{% block title %}Hair Services{% endblock %}
+{% block title %}Nail Services - Your Salon{% endblock %}
+
 {% block content %}
+<style>
+  .hero-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: #fff;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+  }
+
+  .tagline-box {
+    background-color: #f3e5f5;
+    border: 1px solid #ce93d8;
+    padding: 15px 25px;
+    border-radius: 10px;
+    display: inline-block;
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: #6a1b9a;
+  }
+
+  .service-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px dotted #ccc;
+  }
+
+  .service-name {
+    font-weight: 500;
+    color: #4a148c;
+  }
+
+  .service-price {
+    font-weight: bold;
+    color: #6a1b9a;
+  }
+
+  .service-box {
+    padding: 20px;
+    background-color: #fdf5ff;
+    border-radius: 10px;
+    border: 1px solid #e1bee7;
+    margin-bottom: 2rem;
+  }
+
+  h2.title {
+    font-family: 'Playfair Display', serif;
+    color: #7b1fa2;
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+</style>
+
 <section class="hero is-medium is-primary is-bold" style="background-image: url('https://via.placeholder.com/1200x400?text=Nail+Care+Banner'); background-size: cover; background-position: center;">
   <div class="hero-body has-background-black-transparent">
     <div class="container has-text-centered">
-      <h1 class="title is-size-2 has-text-white">Nail Services</h1>
-      <h2 class="subtitle has-text-white">Elegance at your fingertips</h2>
+      <h1 class="hero-heading">Nail Services</h1>
+      <div class="tagline-box">Elegance at your fingertips</div>
     </div>
   </div>
 </section>
+
 <section class="section">
   <div class="container">
-    <h2 class="title is-4 has-text-link">Manicure & Pedicure</h2>
-    <div class="box">
-      <div class="columns is-mobile is-vcentered"><div class="column">Classic Manicure</div><div class="column has-text-right">Rs. 2,800</div></div>
-      <div class="columns is-mobile is-vcentered"><div class="column">Spa Pedicure</div><div class="column has-text-right">Rs. 5,500</div></div>
-      <div class="columns is-mobile is-vcentered"><div class="column">Hydrating Pedicure with Gel Color</div><div class="column has-text-right">Rs. 6,800</div></div>
+    <h2 class="title">Manicure & Pedicure</h2>
+    <div class="service-box">
+      <div class="service-row"><span class="service-name">Classic Manicure</span><span class="service-price">Rs. 2,800</span></div>
+      <div class="service-row"><span class="service-name">Spa Pedicure</span><span class="service-price">Rs. 5,500</span></div>
+      <div class="service-row"><span class="service-name">Hydrating Pedicure with Gel Color</span><span class="service-price">Rs. 6,800</span></div>
     </div>
-    <h2 class="title is-4 has-text-link">Nail Extensions & Art</h2>
-    <div class="box">
-      <div class="columns is-mobile is-vcentered"><div class="column">Gel Full Set (Hands)</div><div class="column has-text-right">Rs. 9,000</div></div>
-      <div class="columns is-mobile is-vcentered"><div class="column">Acrylic Full Set with Gel Color</div><div class="column has-text-right">Rs. 9,500</div></div>
-      <div class="columns is-mobile is-vcentered"><div class="column">Nail Art (Per Nail)</div><div class="column has-text-right">Rs. 250 – Rs. 500</div></div>
+
+    <h2 class="title">Nail Extensions & Art</h2>
+    <div class="service-box">
+      <div class="service-row"><span class="service-name">Gel Full Set (Hands)</span><span class="service-price">Rs. 9,000</span></div>
+      <div class="service-row"><span class="service-name">Acrylic Full Set with Gel Color</span><span class="service-price">Rs. 9,500</span></div>
+      <div class="service-row"><span class="service-name">Nail Art (Per Nail)</span><span class="service-price">Rs. 250 – Rs. 500</span></div>
     </div>
   </div>
 </section>
