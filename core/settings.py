@@ -57,6 +57,15 @@ AUTHENTICATION_BACKENDS = (
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
+# Allauth specific settings
+ACCOUNT_EMAIL_REQUIRED = True           # Makes email mandatory
+ACCOUNT_USERNAME_REQUIRED = False       # Makes username optional
+ACCOUNT_AUTHENTICATION_METHOD = 'email' # Auth using email instead of username
+ACCOUNT_EMAIL_VERIFICATION = 'optional' # Options: 'mandatory', 'optional', or 'none'
+ACCOUNT_UNIQUE_EMAIL = True             # Enforces unique email addresses
+ACCOUNT_SESSION_REMEMBER = True         # Keeps users logged in
+ACCOUNT_LOGOUT_ON_GET = True            # Simpler logout without confirmation
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -66,7 +75,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
-
 ]
 
 ROOT_URLCONF = 'core.urls'
