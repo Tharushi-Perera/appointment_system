@@ -36,16 +36,49 @@
         }
     </style>
 </head>
-<form><div class="mb-3">
-    <label for="username" class="form-label">Username or Email</label>
-    <input type="text" class="form-control" id="username" name="username" required>
-</div>
-<div class="mb-3">
-    <label for="password" class="form-label">Password</label>
-    <div class="input-group">
-        <input type="password" class="form-control" id="password" name="password" required>
+
+<body>
+    <div class="container login-container">
+        <h3 class="text-center mb-4">Welcome Back 👋</h3>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Username or Email</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <div class="input-group">
+                    <input type="password" class="form-control" id="password" name="password" required>
+                    <button type="button" class="btn btn-outline-secondary" onclick="togglePassword()">👁</button>
+                </div>
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="rememberMe" name="remember_me">
+                <label class="form-check-label" for="rememberMe">
+                    Remember Me
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+        <div class="text-center mt-3">
+            <a href="{% url 'account_reset_password' %}">Forgot your password?</a>
+        </div>
+        <div class="text-center mt-3">
+            <a href="{% url 'socialaccount_login' provider='google' %}" class="btn google-btn w-100">Continue with Google</a>
+        </div>
+        <div class="text-center mt-3">
+            <span>Don't have an account?</span> <a href="{% url 'register' %}">Sign Up</a>
+        </div>
     </div>
-</div>
-</form>
+
+    <script>
+    function togglePassword() {
+        const passwordField = document.getElementById("password");
+        passwordField.type = passwordField.type === "password" ? "text" : "password";
+    }
+    </script>
+</body>
+
 
 </html>
