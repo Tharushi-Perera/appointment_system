@@ -10,11 +10,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('booking.urls', namespace='booking')),
     path('', include('accounts.urls')),
-    path('', views.home, name='home'),
     path('services/', include('salon_services.urls')),
-    path('accounts/', include('accounts.urls')),         # your views
-    path('accounts/', include('allauth.urls')),          # django-allauth (Google login, forgot password)
-
+    path('stylists/', TemplateView.as_view(template_name='stylists.html'), name='stylists'),
+    path('', views.home, name='home'),
+    path('accounts/', include('accounts.urls')),
+    path('accounts/', include('allauth.urls')),
 ]
 
 # ✅ This enables serving static files like CSS and images in development
