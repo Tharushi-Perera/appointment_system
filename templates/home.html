@@ -37,30 +37,50 @@
   <h4><em>"Beauty begins the moment you decide to be yourself."</em><br><strong>– Coco Chanel</strong></h4>
 </section>
 
+<!-- why chose us Section -->
+<section class="why-us-section py-5 animate-on-scroll" style="position: relative; overflow: hidden; background: url('{% static 'img/why_bg.png' %}') center center/cover no-repeat;">
 
-<!-- Why Choose Us Section -->
-<section class="why-us-section text-white py-5">
-  <div class="container text-center">
-    <h2 class="fw-bold mb-5">Why Choose Glam Salon?</h2>
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(123, 31, 162, 0.2);"></div>
+
+  <div class="container text-center position-relative">
+    <h3 class="fw-bold mb-5 text-white" style="font-size: 3rem; text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.3);">
+      Why Choose Glam Salon?
+    </h3>
+
     <div class="row justify-content-center">
-      <div class="col-md-4 mb-4">
-        <img src="{% static 'img/top_stylist.png' %}" class="feature-img mb-3" alt="Top Stylists">
-        <h6 class="fw-bold">Top-rated Stylists</h6>
-        <p>Our talented team is committed to giving you a look you'll love.</p>
+      <div class="col-md-4 mb-4 feature-card">
+        <img src="{% static 'img/top_stylist.png' %}" class="feature-img mb-3" alt="Top Stylists" style="border-radius: 20px;">
+        <h6 class="fw-bold text-white" style="font-size: 1.4rem; text-shadow: 1px 1px 6px rgba(255, 255, 255, 0.3);">
+          Top-rated Stylists
+        </h6>
+        <p style="font-size: 1.1rem; color: #f5f5f5; text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);">
+          Our talented team is committed to giving you a look you'll love.
+        </p>
       </div>
-      <div class="col-md-4 mb-4">
-        <img src="{% static 'img/premium_products.png' %}" class="feature-img mb-3" alt="Premium Products">
-        <h6 class="fw-bold">Premium Products</h6>
-        <p>We use only high-quality, skin-friendly beauty products.</p>
+
+      <div class="col-md-4 mb-4 feature-card">
+        <img src="{% static 'img/premium_products.png' %}" class="feature-img mb-3" alt="Premium Products" style="border-radius: 20px;">
+        <h6 class="fw-bold text-white" style="font-size: 1.4rem; text-shadow: 1px 1px 6px rgba(255, 255, 255, 0.3);">
+          Premium Products
+        </h6>
+        <p style="font-size: 1.1rem; color: #f5f5f5; text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);">
+          We use only high-quality, skin-friendly beauty products.
+        </p>
       </div>
-      <div class="col-md-4 mb-4">
-        <img src="{% static 'img/flexible_booking.png' %}" class="feature-img mb-3" alt="Flexible Booking">
-        <h6 class="fw-bold">Flexible Booking</h6>
-        <p>Choose your time, date, and service easily through our platform.</p>
+
+      <div class="col-md-4 mb-4 feature-card">
+        <img src="{% static 'img/flexible_booking.png' %}" class="feature-img mb-3" alt="Flexible Booking" style="border-radius: 20px;">
+        <h6 class="fw-bold text-white" style="font-size: 1.4rem; text-shadow: 1px 1px 6px rgba(255, 255, 255, 0.3);">
+          Flexible Booking
+        </h6>
+        <p style="font-size: 1.1rem; color: #f5f5f5; text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);">
+          Choose your time, date, and service easily through our platform.
+        </p>
       </div>
     </div>
   </div>
 </section>
+
 
 
 <!-- CTA Section -->
@@ -73,48 +93,50 @@
 </section>
 
 <!-- FAQ / Help Section -->
-<section class="faq-section py-5" style="background: linear-gradient(135deg, #f7f1ff, #e5d5f8); animation: fadeInUp 1s;">
+<section class="faq-section py-5" style="background: linear-gradient(135deg, #f8e1ff, #e5ccf8); backdrop-filter: blur(4px); border-radius: 20px;">
   <div class="container">
-    <h2 class="fw-bold text-center mb-4" style="color: #6c3483; animation: bounceIn 1s;">Find Your Answers</h2>
-    <p class="text-center mb-5" style="color: #6c3483;">Still have questions? <a href="/contact" class="text-decoration-underline" style="color: #6c3483;">Contact Us</a></p>
+    <h2 class="fw-bold text-center mb-5" style="color: #6a1b9a;">Find Your Answers</h2>
 
-    <div class="accordion accordion-flush" id="faqAccordion">
+    <div class="accordion fancy-accordion" id="faqAccordion">
 
-      <div class="accordion-item mb-3 rounded shadow faq-card">
-        <h2 class="accordion-header" id="faqHeadingOne">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseOne">
+      <!-- FAQ Item 1 -->
+      <div class="accordion-item mb-4">
+        <h2 class="accordion-header" id="faqOne">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
             🌟 What services do you offer?
           </button>
         </h2>
-        <div id="faqCollapseOne" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
           <div class="accordion-body">
-            We offer haircuts, coloring, facials, bridal packages, skin treatments, and much more to enhance your beauty.
+            We offer luxury haircuts, facials, bridal services, beauty treatments, and more to make you shine!
           </div>
         </div>
       </div>
 
-      <div class="accordion-item mb-3 rounded shadow faq-card">
-        <h2 class="accordion-header" id="faqHeadingTwo">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseTwo">
+      <!-- FAQ Item 2 -->
+      <div class="accordion-item mb-4">
+        <h2 class="accordion-header" id="faqTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
             ✂️ Can I cancel or reschedule my appointment?
           </button>
         </h2>
-        <div id="faqCollapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
           <div class="accordion-body">
             Absolutely! You can cancel or reschedule anytime via your dashboard or by contacting us directly.
           </div>
         </div>
       </div>
 
-      <div class="accordion-item rounded shadow faq-card">
-        <h2 class="accordion-header" id="faqHeadingThree">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseThree">
+      <!-- FAQ Item 3 -->
+      <div class="accordion-item mb-4">
+        <h2 class="accordion-header" id="faqThree">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
             👰 What should I bring for a bridal package?
           </button>
         </h2>
-        <div id="faqCollapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
           <div class="accordion-body">
-            Nothing at all! Just bring your beautiful self — we handle everything to make your special day perfect.
+            Just yourself! We’ll handle everything for your perfect bridal day ✨
           </div>
         </div>
       </div>
@@ -122,6 +144,14 @@
     </div>
   </div>
 </section>
+
+<div class="text-center mt-5">
+    <p class="fw-bold mb-3" style="font-size: 1.2rem; color: #6a1b9a;">Still can't find your answer?</p>
+    <a href="/contact/" class="btn btn-dark btn-lg contact-btn-glow">
+        📩 Contact Us
+    </a>
+</div>
+
 
 
 
