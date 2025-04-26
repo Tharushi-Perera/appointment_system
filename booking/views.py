@@ -140,3 +140,5 @@ def view_cart(request):
         })
     return render(request, 'booking/cart.html', {'services': services})
 
+def contact(request):
+    return render(request, 'contact.html')
