@@ -14,7 +14,7 @@ urlpatterns = [
     path('stylists/', TemplateView.as_view(template_name='stylists.html'), name='stylists'),  # Static stylist page
     path('', views.home, name='home'),                        # Home page (keep this LAST for "/" to go here)
     path('accounts/', include('accounts.urls')),              # Your views (register, login, logout)
-    path('accounts/', include('allauth.urls')),               # Django-allauth (Google login, etc.)
+
 ]
 
 if settings.DEBUG:
