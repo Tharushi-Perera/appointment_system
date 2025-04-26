@@ -10,28 +10,34 @@ def register_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('home')  # or your dashboard
+            return redirect('home')  # Redirect to home after successful signup
     else:
         form = SignUpForm()
     return render(request, 'accounts/register.html', {'form': form})
 
+def home(request):
+    return render(request, 'home.html')  # Correct path, Django looks inside templates/
+
 def login_view(request):
     if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
-        user = authenticate(username=username, password=password)
-        if user:
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        remember = request.POST.get('remember_me')
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
             login(request, user)
-            messages.success(request, "Logged in successfully.")
-            return redirect('dashboard')
+            if remember:
+                request.session.set_expiry(1209600)  # 2 weeks
+            else:
+                request.session.set_expiry(0)  # session ends when browser closes
+            return redirect('home')
         else:
-            messages.error(request, "Invalid credentials")
+            messages.error(request, "Invalid username or password")
+
     return render(request, "accounts/login.html")
 
 def logout_view(request):
     logout(request)
     messages.info(request, "Logged out.")
     return redirect('login')
-
-
-
