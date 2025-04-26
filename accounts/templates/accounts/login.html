@@ -1,5 +1,10 @@
 
 {% load static %}
+{% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,7 +78,8 @@
             <a href="{% url 'account_reset_password' %}">Forgot your password?</a>
         </div>
         <div class="text-center mt-3">
-            <a href="{% url 'socialaccount_login' provider='google' %}" class="btn google-btn w-100">Continue with Google</a>
+            <a href="{% provider_login_url 'google' %}" class="btn google-btn w-100">Continue with Google</a>
+
         </div>
         <div class="text-center mt-3">
             <span>Don't have an account?</span> <a href="{% url 'register' %}">Sign Up</a>

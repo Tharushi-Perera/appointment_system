@@ -61,9 +61,9 @@ LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_ON_GET = True
 
 # Allauth specific settings
-ACCOUNT_EMAIL_REQUIRED = True           # Makes email mandatory
-ACCOUNT_USERNAME_REQUIRED = False       # Makes username optional
-ACCOUNT_AUTHENTICATION_METHOD = 'email' # Auth using email instead of username
+# Allauth specific settings
+ACCOUNT_LOGIN_METHODS = {'email'}       # Replaces ACCOUNT_AUTHENTICATION_METHOD
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']  # Replaces ACCOUNT_EMAIL_REQUIRED and ACCOUNT_USERNAME_REQUIRED
 ACCOUNT_EMAIL_VERIFICATION = 'optional' # Options: 'mandatory', 'optional', or 'none'
 ACCOUNT_UNIQUE_EMAIL = True             # Enforces unique email addresses
 ACCOUNT_SESSION_REMEMBER = True         # Keeps users logged in
@@ -159,3 +159,4 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/login/'
+
