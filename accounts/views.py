@@ -5,7 +5,6 @@ from django.contrib import messages
 from .forms import SignUpForm
 from django.contrib import messages
 
-
 def register_view(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -16,6 +15,9 @@ def register_view(request):
     else:
         form = SignUpForm()
     return render(request, 'accounts/register.html', {'form': form})
+
+def home(request):
+    return render(request, 'home.html')  # remove 'templates/' from path
 
 def login_view(request):
     if request.method == "POST":
@@ -42,20 +44,7 @@ def logout_view(request):
     return redirect('login')
 
 
-def register_view(request):
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('home')  # or your dashboard
-    else:
-        form = SignUpForm()
-    return render(request, 'accounts/register.html', {'form': form})
 
-
-def home(request):
-    return render(request, 'templates/home.html')
 
 
 
