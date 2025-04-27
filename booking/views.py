@@ -24,6 +24,8 @@ def home(request):
     services = Service.objects.all()
     return render(request, 'home.html', {'listing_services': services})
 
+
+
 #@login_required
 # booking/views.py
 def book_appointment(request):
@@ -138,3 +140,5 @@ def view_cart(request):
         })
     return render(request, 'booking/cart.html', {'services': services})
 
+def contact(request):
+    return render(request, 'contact.html')

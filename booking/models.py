@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 
 
 
-
 class ServiceCategory(models.Model):
     name = models.CharField(max_length=100)
     display_order = models.PositiveIntegerField(default=0)
