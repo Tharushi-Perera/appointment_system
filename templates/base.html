@@ -162,6 +162,29 @@
   });
 </script>
 
+<!-- ✅ Scroll to Top Button -->
+<a href="#" class="scroll-to-top d-none" id="scrollToTop">
+  <i class="fas fa-arrow-up"></i>
+</a>
+
+
+<script>
+  // Show/Hide scroll button
+  window.addEventListener('scroll', function() {
+    const scrollBtn = document.getElementById('scrollToTop');
+    if (window.scrollY > 300) {
+      scrollBtn.classList.remove('d-none');
+    } else {
+      scrollBtn.classList.add('d-none');
+    }
+  });
+
+  // Smooth scroll to top when button clicked
+  document.getElementById('scrollToTop').addEventListener('click', function(e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
 
 
 </body>
