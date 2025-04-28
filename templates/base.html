@@ -42,7 +42,7 @@
         <li class="nav-item"><a class="nav-link" href="/services/">Services</a></li>
         <li class="nav-item"><a class="nav-link" href="/stylists/">Stylists</a></li>
         <li class="nav-item"><a class="nav-link" href="/offers/">Offers</a></li>
-        <li class="nav-item"><a class="nav-link" href="/book/">Book Appointment</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'booking:book_appointment' %}">Book Appointment</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'account_login' %}">Login</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Sign Up</a></li>
       </ul>
@@ -74,7 +74,7 @@
           <li><a href="/" class="text-white text-decoration-none">Home</a></li>
           <li><a href="/services/" class="text-white text-decoration-none">Services</a></li>
           <li><a href="/offers/" class="text-white text-decoration-none">Offers</a></li>
-          <li><a href="/book/" class="text-white text-decoration-none">Book Appointment</a></li>
+          <li><a href="{% url 'booking:book_appointment' %}" class="text-white text-decoration-none">Book Appointment</a></li>
           <li><a href="/contact/" class="text-white text-decoration-none">Contact Us</a></li>
         </ul>
       </div>
