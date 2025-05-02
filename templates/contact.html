@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="contact-section py-5" style="background: linear-gradient(to bottom right, #f3e5f5, #e1bee7);">
+  <div class="container">
+    <h2 class="text-center fw-bold mb-4" style="color: #6a1b9a;">Get in Touch</h2>
+    <p class="text-center mb-5">We'd love to hear from you! Please fill out the form below or contact us via phone or email.</p>
+
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <form>
+          <div class="mb-3">
+            <label for="name" class="form-label">Your Name</label>
+            <input type="text" class="form-control shadow-sm" id="name" placeholder="Enter your name">
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" class="form-control shadow-sm" id="email" placeholder="Enter your email">
+          </div>
+          <div class="mb-3">
+            <label for="message" class="form-label">Your Message</label>
+            <textarea class="form-control shadow-sm" id="message" rows="5" placeholder="Write your message"></textarea>
+          </div>
+          <div class="text-center">
+            <button type="button" class="btn btn-dark btn-lg mt-3" style="background-color: #6a1b9a; border: none;" data-bs-toggle="modal" data-bs-target="#thankYouModal">
+             Send Message
+            </button>
+
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="text-center mt-5">
+      <p><i class="fas fa-phone"></i> +94 11 234 5678</p>
+      <p><i class="fas fa-envelope"></i> info@glamsalon.lk</p>
+    </div>
+  </div>
+</section>
+
+<!-- Thank You Modal -->
+<div class="modal fade" id="thankYouModal" tabindex="-1" aria-labelledby="thankYouModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow-lg">
+      <div class="modal-header" style="background: linear-gradient(135deg, #ce93d8, #ba68c8);">
+        <h5 class="modal-title text-white" id="thankYouModalLabel">Thank You! 🌸</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <p>We appreciate you contacting GlamSalon. Our team will get back to you shortly! 💌</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
