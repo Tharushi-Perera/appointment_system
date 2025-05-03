@@ -4,16 +4,17 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import SignUpForm
 
+
 def register_view(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')  # Ask user to log in after signing up
+            messages.success(request, 'Sign-up successful! You can now log in.')
+            return redirect('login')
     else:
         form = SignUpForm()
     return render(request, 'accounts/register.html', {'form': form})
-
 
 def home(request):
     return render(request, 'home.html')  # Correct path, Django looks inside templates/
