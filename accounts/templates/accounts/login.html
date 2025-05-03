@@ -6,33 +6,38 @@
     <meta charset="UTF-8">
     <title>Login | Salon App</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         body {
-            background: #f8f9fa;
+            background-color: #f8f9fa;
         }
         .login-container {
-            max-width: 450px;
+            max-width: 500px;
             margin: 5% auto;
             padding: 2rem;
-            background: white;
+            background-color: white;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
         .form-control:focus {
             box-shadow: none;
-            border-color: #ff6b81;
+            border-color: #6f2da8;
         }
-        .btn-primary {
-            background-color: #ff6b81;
-            border-color: #ff6b81;
-        }
-        .btn-primary:hover {
-            background-color: #ff4757;
-            border-color: #ff4757;
-        }
-        .google-btn {
-            background-color: #4285F4;
+        .btn-login {
+            background-color: #6f2da8;
+            border-color: #6f2da8;
             color: white;
+        }
+        .btn-login:hover {
+            background-color: #541e8d;
+            border-color: #541e8d;
+        }
+        .form-check-label {
+            font-weight: 500;
+        }
+        .form-check-input:checked {
+            background-color: #6f2da8;
+            border-color: #6f2da8;
         }
     </style>
 </head>
@@ -41,7 +46,7 @@
     <div class="container login-container">
         <h3 class="text-center mb-4">Welcome Back 👋</h3>
 
-        <!-- ✅ Message display block (shows success, warning, or error alerts) -->
+        <!-- ✅ Message display block -->
         {% if messages %}
           {% for message in messages %}
             <div class="alert alert-{{ message.tags }} text-center">
@@ -50,14 +55,39 @@
           {% endfor %}
         {% endif %}
 
-        <form method="post">
+        <form method="post" novalidate>
             {% csrf_token %}
             <div class="mb-3">
                 <label for="username" class="form-label">Username or Email</label>
-                <input type="text" class="form-control" id="username" name="username" required>
+                <input type="text" class="form-control" id="username" name="username" autocomplete="off" required>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <div class="input-group">
-                    <input type="password" class="form-control" id="password" name="password" required>
+                    <input type="password" class="form-control" id="password" name="password" autocomplete="off" required>
                     <button type="button" class="btn btn-outline-secondary" onclick="togglePassword()">👁</button>
+                </div>
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="rememberMe" name="remember_me">
+                <label class="form-check-label" for="rememberMe">Remember Me</label>
+            </div>
+            <button type="submit" class="btn btn-login w-100">Login</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <a href="{% url 'account_reset_password' %}">Forgot your password?</a>
+        </div>
+        <div class="text-center mt-3">
+            <span>Don't have an account?</span> <a href="{% url 'register' %}">Sign Up</a>
+        </div>
+    </div>
+
+    <script>
+      function togglePassword() {
+          const passwordField = document.getElementById("password");
+          passwordField.type = passwordField.type === "password" ? "text" : "password";
+      }
+    </script>
+</body>
+</html>
