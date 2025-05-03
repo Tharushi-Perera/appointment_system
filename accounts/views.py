@@ -3,6 +3,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import SignUpForm
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from django.utils import timezone
+from booking.models import Appointment
 
 
 def register_view(request):
@@ -42,3 +46,16 @@ def logout_view(request):
     logout(request)
     messages.info(request, "Logged out.")
     return redirect('login')
+
+
+@login_required
+def profile_view(request):
+    user = request.user
+    past_appointments = user.appointments.filter(date__lt=timezone.now()).order_by('-date')
+    upcoming_appointments = user.appointments.filter(date__gte=timezone.now()).order_by('date')
+
+    return render(request, 'accounts/profile.html', {
+        'user': user,
+        'past_appointments': past_appointments,
+        'upcoming_appointments': upcoming_appointments,
+    })
