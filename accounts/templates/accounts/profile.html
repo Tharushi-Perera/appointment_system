@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5 mb-5" style="max-width: 900px;">
+    <h2 class="text-center mb-4">👤 My Profile</h2>
+
+    <div class="card p-4 mb-4 shadow-sm">
+        <h5>Profile Details</h5>
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <a href="{% url 'edit_profile' %}" class="btn btn-outline-primary btn-sm mt-2">Edit Profile</a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card p-4 shadow-sm mb-4">
+                <h5 class="mb-3">Upcoming Appointments</h5>
+                {% if upcoming_appointments %}
+                    <ul class="list-group">
+                        {% for appt in upcoming_appointments %}
+                        <li class="list-group-item">
+                            <strong>{{ appt.service }}</strong> on {{ appt.date|date:"F j, Y, g:i a" }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="text-muted">No upcoming appointments.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card p-4 shadow-sm mb-4">
+                <h5 class="mb-3">Past Appointments</h5>
+                {% if past_appointments %}
+                    <ul class="list-group">
+                        {% for appt in past_appointments %}
+                        <li class="list-group-item">
+                            <strong>{{ appt.service }}</strong> on {{ appt.date|date:"F j, Y, g:i a" }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="text-muted">No past appointments.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
