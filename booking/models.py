@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-
 class ServiceCategory(models.Model):
     name = models.CharField(max_length=100)
     display_order = models.PositiveIntegerField(default=0)
@@ -12,6 +11,7 @@ class ServiceCategory(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class ServiceSubCategory(models.Model):
     category = models.ForeignKey(ServiceCategory, related_name='subcategories', on_delete=models.CASCADE)
@@ -23,6 +23,7 @@ class ServiceSubCategory(models.Model):
 
     def __str__(self):
         return f"{self.category.name} - {self.name}"
+
 
 class Service(models.Model):
     subcategory = models.ForeignKey(ServiceSubCategory, related_name='services', on_delete=models.CASCADE)
@@ -41,6 +42,7 @@ class Service(models.Model):
     def __str__(self):
         return f"{self.name} ({self.subcategory.name})"
 
+
 class Appointment(models.Model):
     STATUS_CHOICES = (
         ('Pending', 'Pending'),
@@ -49,7 +51,8 @@ class Appointment(models.Model):
         ('Cancelled', 'Cancelled'),
     )
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # ✅ Add related_name='appointments' for reverse access from User
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='appointments')
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     date = models.DateField()
     time = models.TimeField()
