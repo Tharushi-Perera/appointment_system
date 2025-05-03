@@ -73,6 +73,17 @@
         .booking-left {
             height: 250px;
         }
+        .loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+.loading-spinner {
+    margin-left: 10px;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
     }
 </style>
 
@@ -124,58 +135,86 @@ $(document).ready(function() {
     // Category change handler
     $('#id_category').change(function() {
         var categoryId = $(this).val();
+        var $subcategory = $('#id_subcategory');
+        var $service = $('#id_service');
+
+        $subcategory.empty().append('<option value="">Select a subcategory</option>');
+        $service.empty().append('<option value="">Select a service</option>');
+
         if (categoryId) {
-            // AJAX request to get subcategories
+            showLoading($subcategory);
             $.ajax({
-                url: '/get_subcategories/',
-                data: {
-                    'category_id': categoryId
-                },
+                url: '{% url "booking:get_subcategories" %}',
+                data: { 'category_id': categoryId },
                 dataType: 'json',
                 success: function(data) {
-                    $('#id_subcategory').empty();
-                    $('#id_subcategory').append('<option value="">Select a subcategory</option>');
-                    $.each(data.subcategories, function(key, value) {
-                        $('#id_subcategory').append('<option value="' + value.id + '">' + value.name + '</option>');
-                    });
-
-                    // Clear services dropdown
-                    $('#id_service').empty();
-                    $('#id_service').append('<option value="">Select a service</option>');
+                    if(data.subcategories && data.subcategories.length > 0) {
+                        $.each(data.subcategories, function(key, value) {
+                            $subcategory.append($('<option>', {
+                                value: value.id,
+                                text: value.name
+                            }));
+                        });
+                    } else {
+                        $subcategory.append('<option value="">No subcategories found</option>');
+                    }
+                },
+                error: function() {
+                    $subcategory.append('<option value="">Error loading subcategories</option>');
+                },
+                complete: function() {
+                    hideLoading($subcategory);
                 }
             });
-        } else {
-            $('#id_subcategory').empty();
-            $('#id_subcategory').append('<option value="">Select a subcategory</option>');
-            $('#id_service').empty();
-            $('#id_service').append('<option value="">Select a service</option>');
         }
     });
 
     // Subcategory change handler
     $('#id_subcategory').change(function() {
         var subcategoryId = $(this).val();
+        var $service = $('#id_service');
+
+        $service.empty().append('<option value="">Select a service</option>');
+
         if (subcategoryId) {
-            // AJAX request to get services
+            showLoading($service);
             $.ajax({
-                url: '/get_services/',
-                data: {
-                    'subcategory_id': subcategoryId
-                },
+                url: '{% url "booking:get_services" %}',
+                data: { 'subcategory_id': subcategoryId },
                 dataType: 'json',
                 success: function(data) {
-                    $('#id_service').empty();
-                    $('#id_service').append('<option value="">Select a service</option>');
-                    $.each(data.services, function(key, value) {
-                        $('#id_service').append('<option value="' + value.id + '">' + value.name + ' - Rs. ' + value.price + '</option>');
-                    });
+                    if(data.services && data.services.length > 0) {
+                        $.each(data.services, function(key, value) {
+                            $service.append($('<option>', {
+                                value: value.id,
+                                text: value.name + ' - Rs. ' + value.price + ' (' + value.duration_minutes + ' mins)'
+                            }));
+                        });
+                    } else {
+                        $service.append('<option value="">No services found</option>');
+                    }
+                },
+                error: function() {
+                    $service.append('<option value="">Error loading services</option>');
+                },
+                complete: function() {
+                    hideLoading($service);
                 }
             });
-        } else {
-            $('#id_service').empty();
-            $('#id_service').append('<option value="">Select a service</option>');
         }
     });
+
+    function showLoading(element) {
+        element.prop('disabled', true);
+        element.addClass('loading');
+        element.after('<span class="loading-spinner">⌛</span>');
+    }
+
+    function hideLoading(element) {
+        element.prop('disabled', false);
+        element.removeClass('loading');
+        element.next('.loading-spinner').remove();
+    }
 });
 </script>
 {% endblock %}

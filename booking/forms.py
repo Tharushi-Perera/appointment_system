@@ -103,3 +103,14 @@ class AppointmentForm(ModelForm):
                 )
 
         return cleaned_data
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Set empty labels
+        self.fields['category'].empty_label = "Select a category"
+        self.fields['subcategory'].empty_label = "Select a subcategory"
+        self.fields['service'].empty_label = "Select a service"
+
+        # Order categories by display_order
+        self.fields['category'].queryset = ServiceCategory.objects.all().order_by('display_order')

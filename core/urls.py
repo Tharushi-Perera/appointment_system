@@ -1,20 +1,26 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-from booking import views
+from booking import views as booking_views
 from django.conf import settings
 from django.conf.urls.static import static
-from django.shortcuts import redirect
 
 urlpatterns = [
-    path('', lambda request: redirect('login')),   # Redirect root to login initially
     path('admin/', admin.site.urls),
-    path('', include('booking.urls', namespace='booking')),  # Booking app
-    path('services/', include('salon_services.urls')),       # Salon services
-    path('stylists/', TemplateView.as_view(template_name='stylists.html'), name='stylists'),  # Static stylist page
-    path('', views.home, name='home'),                        # Home page (keep this LAST for "/" to go here)
-    path('accounts/', include('accounts.urls')),              # Your views (register, login, logout)
 
+    # Home Page
+    path('', booking_views.home, name='home'),   # Only THIS will handle /
+
+    # Application URLs
+    path('book/', include('booking.urls', namespace='booking')),
+    path('services/', include('salon_services.urls')),
+    path('stylists/', TemplateView.as_view(template_name='stylists.html'), name='stylists'),
+    path('contact/', booking_views.contact, name='contact'),
+    path('offers/', booking_views.offers, name='offers'),
+
+    # Authentication
+    path('accounts/', include('accounts.urls')),
+    path('accounts/', include('allauth.urls')),
 ]
 
 if settings.DEBUG:
