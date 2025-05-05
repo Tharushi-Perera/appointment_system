@@ -17,4 +17,6 @@ urlpatterns = [
         template_name='accounts/password_reset_done.html'
     ), name='password_reset_done'),
     path('profile/', views.profile_view, name='profile'),
+    path('profile/edit/', views.profile_edit, name='edit_profile'),
+
 ]
