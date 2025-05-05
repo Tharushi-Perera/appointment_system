@@ -37,16 +37,6 @@
         margin-bottom: 2rem;
         color: #555;
     }
-    .form-group {
-        width: 100%;
-        margin-bottom: 1rem;
-    }
-    .form-control {
-        border-radius: 8px;
-        padding: 0.6rem 1rem;
-        border: 1px solid #ccc;
-        width: 100%;
-    }
     .btn-book {
         background-color: #5f2c82;
         color: #fff;
@@ -66,6 +56,137 @@
         margin-top: 1rem;
     }
 
+    /* Improved service selection styles */
+    .service-selection {
+        width: 100%;
+        max-height: 400px;
+        overflow-y: auto;
+        margin-bottom: 1.5rem;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        padding: 10px;
+    }
+
+    .category-item {
+        margin-bottom: 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .category-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 15px;
+        background-color: #f8f9fa;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background-color 0.2s;
+    }
+
+    .category-header:hover {
+        background-color: #e9ecef;
+    }
+
+    .category-header .arrow {
+        transition: transform 0.2s;
+    }
+
+    .category-header.collapsed .arrow {
+        transform: rotate(-90deg);
+    }
+
+    .subcategory-list {
+        background-color: #fff;
+    }
+
+    .subcategory-item {
+        border-top: 1px solid #f0f0f0;
+    }
+
+    .subcategory-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 15px 10px 25px;
+        background-color: #fafafa;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background-color 0.2s;
+    }
+
+    .subcategory-header:hover {
+        background-color: #f0f0f0;
+    }
+
+    .subcategory-header .arrow {
+        transition: transform 0.2s;
+    }
+
+    .subcategory-header.collapsed .arrow {
+        transform: rotate(-90deg);
+    }
+
+    .service-list {
+        padding: 5px 15px 5px 35px;
+    }
+
+    .service-item {
+        display: flex;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid #f5f5f5;
+    }
+
+    .service-item:last-child {
+        border-bottom: none;
+    }
+
+    .service-checkbox {
+        margin-right: 12px;
+        width: 18px;
+        height: 18px;
+    }
+
+    .service-info {
+        flex-grow: 1;
+    }
+
+    .service-name {
+        font-weight: 500;
+        color: #333;
+    }
+
+    .service-details {
+        font-size: 0.85rem;
+        color: #666;
+        margin-top: 2px;
+    }
+
+    .selected-count {
+        font-size: 0.8rem;
+        color: #5f2c82;
+        font-weight: bold;
+        margin-left: 10px;
+    }
+
+    .date-picker {
+        margin-top: 1.5rem;
+        width: 100%;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        padding: 0.6rem 1rem;
+        border: 1px solid #ccc;
+        width: 100%;
+    }
+
     @media (max-width: 768px) {
         .booking-container {
             flex-direction: column;
@@ -73,17 +194,9 @@
         .booking-left {
             height: 250px;
         }
-        .loading {
-    opacity: 0.7;
-    pointer-events: none;
-}
-.loading-spinner {
-    margin-left: 10px;
-    animation: spin 1s linear infinite;
-}
-@keyframes spin {
-    100% { transform: rotate(360deg); }
-}
+        .service-selection {
+            max-height: 300px;
+        }
     }
 </style>
 
@@ -94,28 +207,60 @@
         <div class="text-center mb-3">
             <div style="font-size: 2rem;">📅</div>
             <h2>Book Your Appointment</h2>
-            <p>Choose your service and preferred date<br>to glam up!</p>
+            <p>Choose your services and preferred date<br>to glam up!</p>
         </div>
 
         <form method="post" style="width: 100%; max-width: 400px;" id="appointment-form">
             {% csrf_token %}
 
-            <div class="form-group">
-                {{ form.category.label_tag }}
-                {{ form.category|add_class:"form-control" }}
+            <div class="service-selection">
+                {% for category in categories %}
+                <div class="category-item">
+                    <div class="category-header collapsed" data-toggle="collapse" data-target="#category-{{ category.id }}">
+                        <div class="d-flex align-items-center">
+                            <span class="arrow mr-2">▼</span>
+                            <span>{{ category.name }}</span>
+                        </div>
+                        <span class="selected-count" id="selected-count-{{ category.id }}">0 selected</span>
+                    </div>
+                    <div class="subcategory-list collapse" id="category-{{ category.id }}">
+                        {% for subcategory in category.subcategories.all %}
+                        <div class="subcategory-item">
+                            <div class="subcategory-header collapsed" data-toggle="collapse" data-target="#subcategory-{{ subcategory.id }}">
+                                <div class="d-flex align-items-center">
+                                    <span class="arrow mr-2">▼</span>
+                                    <span>{{ subcategory.name }}</span>
+                                </div>
+                                <span class="selected-count" id="selected-count-{{ subcategory.id }}">0 selected</span>
+                            </div>
+                            <div class="service-list collapse" id="subcategory-{{ subcategory.id }}">
+                                {% for service in subcategory.services.all %}
+                                <div class="service-item">
+                                    <input type="checkbox"
+                                           class="service-checkbox"
+                                           id="service-{{ service.id }}"
+                                           name="services"
+                                           value="{{ service.id }}"
+                                           data-category="{{ category.id }}"
+                                           data-subcategory="{{ subcategory.id }}"
+                                           onchange="updateSelectionCounters(this)">
+                                    <div class="service-info">
+                                        <div class="service-name">{{ service.name }}</div>
+                                        <div class="service-details">
+                                            Rs. {{ service.price }} • {{ service.duration_minutes }} mins
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
             </div>
 
-            <div class="form-group">
-                {{ form.subcategory.label_tag }}
-                {{ form.subcategory|add_class:"form-control" }}
-            </div>
-
-            <div class="form-group">
-                {{ form.service.label_tag }}
-                {{ form.service|add_class:"form-control" }}
-            </div>
-
-            <div class="form-group">
+            <div class="form-group date-picker">
                 {{ form.date.label_tag }}
                 {{ form.date|add_class:"form-control" }}
             </div>
@@ -131,90 +276,38 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(document).ready(function() {
-    // Category change handler
-    $('#id_category').change(function() {
-        var categoryId = $(this).val();
-        var $subcategory = $('#id_subcategory');
-        var $service = $('#id_service');
+    $(document).ready(function() {
+        // Initialize collapse behavior
+        $('.category-header').click(function() {
+            $(this).toggleClass('collapsed');
+            $($(this).data('target')).collapse('toggle');
+        });
 
-        $subcategory.empty().append('<option value="">Select a subcategory</option>');
-        $service.empty().append('<option value="">Select a service</option>');
-
-        if (categoryId) {
-            showLoading($subcategory);
-            $.ajax({
-                url: '{% url "booking:get_subcategories" %}',
-                data: { 'category_id': categoryId },
-                dataType: 'json',
-                success: function(data) {
-                    if(data.subcategories && data.subcategories.length > 0) {
-                        $.each(data.subcategories, function(key, value) {
-                            $subcategory.append($('<option>', {
-                                value: value.id,
-                                text: value.name
-                            }));
-                        });
-                    } else {
-                        $subcategory.append('<option value="">No subcategories found</option>');
-                    }
-                },
-                error: function() {
-                    $subcategory.append('<option value="">Error loading subcategories</option>');
-                },
-                complete: function() {
-                    hideLoading($subcategory);
-                }
-            });
-        }
+        $('.subcategory-header').click(function() {
+            $(this).toggleClass('collapsed');
+            $($(this).data('target')).collapse('toggle');
+        });
     });
 
-    // Subcategory change handler
-    $('#id_subcategory').change(function() {
-        var subcategoryId = $(this).val();
-        var $service = $('#id_service');
+    function updateSelectionCounters(checkbox) {
+        const categoryId = checkbox.dataset.category;
+        const subcategoryId = checkbox.dataset.subcategory;
 
-        $service.empty().append('<option value="">Select a service</option>');
+        // Update subcategory counter
+        const subcategoryCheckboxes = document.querySelectorAll(
+            `.service-checkbox[data-subcategory="${subcategoryId}"]`
+        );
+        const selectedSubcategoryCount = Array.from(subcategoryCheckboxes).filter(cb => cb.checked).length;
+        document.getElementById(`selected-count-${subcategoryId}`).textContent =
+            `${selectedSubcategoryCount} selected`;
 
-        if (subcategoryId) {
-            showLoading($service);
-            $.ajax({
-                url: '{% url "booking:get_services" %}',
-                data: { 'subcategory_id': subcategoryId },
-                dataType: 'json',
-                success: function(data) {
-                    if(data.services && data.services.length > 0) {
-                        $.each(data.services, function(key, value) {
-                            $service.append($('<option>', {
-                                value: value.id,
-                                text: value.name + ' - Rs. ' + value.price + ' (' + value.duration_minutes + ' mins)'
-                            }));
-                        });
-                    } else {
-                        $service.append('<option value="">No services found</option>');
-                    }
-                },
-                error: function() {
-                    $service.append('<option value="">Error loading services</option>');
-                },
-                complete: function() {
-                    hideLoading($service);
-                }
-            });
-        }
-    });
-
-    function showLoading(element) {
-        element.prop('disabled', true);
-        element.addClass('loading');
-        element.after('<span class="loading-spinner">⌛</span>');
+        // Update category counter
+        const categoryCheckboxes = document.querySelectorAll(
+            `.service-checkbox[data-category="${categoryId}"]`
+        );
+        const selectedCategoryCount = Array.from(categoryCheckboxes).filter(cb => cb.checked).length;
+        document.getElementById(`selected-count-${categoryId}`).textContent =
+            `${selectedCategoryCount} selected`;
     }
-
-    function hideLoading(element) {
-        element.prop('disabled', false);
-        element.removeClass('loading');
-        element.next('.loading-spinner').remove();
-    }
-});
 </script>
 {% endblock %}
