@@ -1,7 +1,7 @@
 from django.db import migrations
 
 def load_initial_data(apps, schema_editor):
-    ServiceCategory = apps.get_model('booking', 'ServiceCategory')  # Changed from 'your_app'
+    ServiceCategory = apps.get_model('booking', 'ServiceCategory')
     ServiceSubCategory = apps.get_model('booking', 'ServiceSubCategory')
     Service = apps.get_model('booking', 'Service')
 
