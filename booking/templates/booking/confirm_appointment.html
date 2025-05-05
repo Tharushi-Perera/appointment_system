@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .confirmation-card {
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(123, 31, 162, 0.1);
+        padding: 2.5rem;
+        margin-top: 2rem;
+    }
+    
+    .confirmation-header {
+        color: #4a148c;
+        font-weight: 700;
+        border-bottom: 2px solid #e1bee7;
+        padding-bottom: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .detail-item {
+        margin-bottom: 1.2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px dashed #e1bee7;
+    }
+    
+    .detail-label {
+        font-weight: 600;
+        color: #7b1fa2;
+    }
+    
+    .btn-confirm {
+        background-color: #7b1fa2;
+        color: white;
+        padding: 0.75rem 2rem;
+        font-weight: 600;
+        border-radius: 8px;
+        transition: all 0.3s;
+    }
+    
+    .btn-confirm:hover {
+        background-color: #6a1b9a;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(123, 31, 162, 0.2);
+    }
+    
+    .service-badge {
+        background-color: #e1bee7;
+        color: #4a148c;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+        display: inline-block;
+    }
+</style>
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="confirmation-card">
+                <h2 class="confirmation-header text-center mb-4">
+                    <i class="fas fa-calendar-check text-purple me-2"></i>
+                    Confirm Your Appointment
+                </h2>
+                
+                <div class="detail-item">
+                    <div class="detail-label">Date</div>
+                    <div class="fs-5">{{ date|date:"F j, Y" }}</div>
+                </div>
+                
+                <div class="detail-item">
+                    <div class="detail-label">Time</div>
+                    <div class="fs-5">{{ time }}</div>
+                </div>
+                
+                <div class="detail-item">
+                    <div class="detail-label">Services</div>
+                    <div class="d-flex flex-wrap mt-2">
+                        {% for service in services %}
+                        <span class="service-badge">
+                            {{ service.name }} (Rs. {{ service.price }})
+                        </span>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <div class="detail-item">
+                    <div class="detail-label">Total Duration</div>
+                    <div class="fs-5">{{ total_duration }} minutes</div>
+                </div>
+                
+                <div class="mt-4 pt-3 text-center">
+                    <form method="post" action="{% url 'booking:save_appointment' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="time" value="{{ time }}">
+                        <!-- Add hidden field for all service IDs -->
+                        {% for service in services %}
+                        <input type="hidden" name="service_ids" value="{{ service.id }}">
+                        {% endfor %}
+                        <!-- Add hidden field for date -->
+                        <input type="hidden" name="date" value="{{ date.isoformat }}">
+
+                        <button type="submit" class="btn-confirm">
+                            <i class="fas fa-check-circle me-2"></i>
+                            Confirm Appointment
+                        </button>
+                        <a href="{% url 'booking:choose_time' %}" class="btn btn-outline-secondary ms-3">
+                            <i class="fas fa-arrow-left me-2"></i>
+                            Change Time
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}
