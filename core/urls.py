@@ -21,7 +21,7 @@ urlpatterns = [
     path('profile/', views.profile_view, name='profile'),
 
     # Authentication
-    path('accounts/', include('accounts.urls')),
+    path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
     path('accounts/', include('allauth.urls')),
 ]
 

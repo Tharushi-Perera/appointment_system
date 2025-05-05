@@ -2,13 +2,14 @@ from django.urls import path
 from accounts import views
 from django.contrib.auth import views as auth_views
 
-app_name = 'accounts'
-
 urlpatterns = [
-    path('login/', views.login_view, name='login'),
-    path('register/', views.register_view, name='register'),  #
-    path('logout/', views.logout_view, name='logout'),
     path('', views.home, name='home'),
+    path('login/', views.login_view, name='login'),
+    path('register/', views.register_view, name='register'),
+    path('logout/', views.logout_view, name='logout'),
+    path('profile/', views.profile_view, name='profile'),
+    path('profile/edit/', views.profile_edit, name='edit_profile'),
+
     path('password_reset/', auth_views.PasswordResetView.as_view(
         template_name='accounts/password_reset.html'
     ), name='password_reset'),
@@ -16,7 +17,4 @@ urlpatterns = [
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(
         template_name='accounts/password_reset_done.html'
     ), name='password_reset_done'),
-    path('profile/', views.profile_view, name='profile'),
-    path('profile/edit/', views.profile_edit, name='edit_profile'),
-
 ]
