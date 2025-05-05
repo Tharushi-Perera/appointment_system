@@ -2,11 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .forms import SignUpForm
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+from .forms import SignUpForm, ProfileUpdateForm
 from booking.models import Appointment
+
 
 
 def register_view(request):
@@ -59,3 +59,38 @@ def profile_view(request):
         'past_appointments': past_appointments,
         'upcoming_appointments': upcoming_appointments,
     })
+
+
+@login_required
+def profile_view(request):
+    user = request.user
+    past_appointments = Appointment.objects.filter(user=user, date__lt=timezone.now()).order_by('-date')
+    upcoming_appointments = Appointment.objects.filter(user=user, date__gte=timezone.now()).order_by('date')
+
+    services = [a.service.name for a in past_appointments]
+    stylists = [a.service.subcategory.name for a in past_appointments]
+
+    freq_services = {s: services.count(s) for s in set(services)}
+    freq_stylists = {s: stylists.count(s) for s in set(stylists)}
+
+    return render(request, 'accounts/profile.html', {
+        'user': user,
+        'past_appointments': past_appointments,
+        'upcoming_appointments': upcoming_appointments,
+        'freq_services': freq_services,
+        'freq_stylists': freq_stylists,
+    })
+
+
+@login_required
+def profile_edit(request):
+    if request.method == 'POST':
+        form = ProfileUpdateForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile was updated successfully!')
+            return redirect('profile')
+    else:
+        form = ProfileUpdateForm(instance=request.user)
+    return render(request, 'accounts/edit_profile.html', {'form': form})
+
