@@ -1,51 +1,34 @@
 {% extends 'base.html' %}
-{% load static %}
-
 {% block content %}
-<div class="container mt-5 mb-5" style="max-width: 900px;">
-    <h2 class="text-center mb-4">👤 My Profile</h2>
+<h2>{{ user.username }}'s Profile</h2>
+<p><strong>Email:</strong> {{ user.email }}</p>
+<a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
 
-    <div class="card p-4 mb-4 shadow-sm">
-        <h5>Profile Details</h5>
-        <p><strong>Username:</strong> {{ user.username }}</p>
-        <p><strong>Email:</strong> {{ user.email }}</p>
-        <a href="{% url 'edit_profile' %}" class="btn btn-outline-primary btn-sm mt-2">Edit Profile</a>
-    </div>
+<h3 class="mt-4">Upcoming Appointments</h3>
+<ul>
+    {% for a in upcoming_appointments %}
+    <li>{{ a.date }} - {{ a.service.name }}</li>
+    {% endfor %}
+</ul>
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card p-4 shadow-sm mb-4">
-                <h5 class="mb-3">Upcoming Appointments</h5>
-                {% if upcoming_appointments %}
-                    <ul class="list-group">
-                        {% for appt in upcoming_appointments %}
-                        <li class="list-group-item">
-                            <strong>{{ appt.service }}</strong> on {{ appt.date|date:"F j, Y, g:i a" }}
-                        </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p class="text-muted">No upcoming appointments.</p>
-                {% endif %}
-            </div>
-        </div>
+<h3>Past Appointments</h3>
+<ul>
+    {% for a in past_appointments %}
+    <li>{{ a.date }} - {{ a.service.name }}</li>
+    {% endfor %}
+</ul>
 
-        <div class="col-md-6">
-            <div class="card p-4 shadow-sm mb-4">
-                <h5 class="mb-3">Past Appointments</h5>
-                {% if past_appointments %}
-                    <ul class="list-group">
-                        {% for appt in past_appointments %}
-                        <li class="list-group-item">
-                            <strong>{{ appt.service }}</strong> on {{ appt.date|date:"F j, Y, g:i a" }}
-                        </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p class="text-muted">No past appointments.</p>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-</div>
+<h3>Most Used Services</h3>
+<ul>
+    {% for service, count in freq_services.items %}
+    <li>{{ service }} - {{ count }} times</li>
+    {% endfor %}
+</ul>
+
+<h3>Frequently Contacted Stylists</h3>
+<ul>
+    {% for stylist, count in freq_stylists.items %}
+    <li>{{ stylist }} - {{ count }} times</li>
+    {% endfor %}
+</ul>
 {% endblock %}
