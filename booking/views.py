@@ -27,11 +27,8 @@ def home(request):
 
 
 
-#@login_required
-# booking/views.py
 from .models import ServiceCategory
-
-
+@login_required
 def book_appointment(request):
     categories = ServiceCategory.objects.prefetch_related(
         'subcategories__services'
@@ -62,8 +59,7 @@ def book_appointment(request):
     })
 
 
-#@login_required
-# booking/views.py
+@login_required
 def confirm_appointment(request):
     if request.method == 'POST':
         appointment_data = request.session.get('appointment_data')
@@ -97,6 +93,7 @@ def confirm_appointment(request):
 from django.shortcuts import get_object_or_404
 
 
+@login_required
 def choose_time(request):
     appointment_data = request.session.get('appointment_data')
     if not appointment_data:
@@ -121,7 +118,7 @@ def choose_time(request):
     except (Service.DoesNotExist, KeyError, ValueError):
         return redirect('booking:book_appointment')
 
-
+@login_required
 def confirm_appointment(request):
     appointment_data = request.session.get('appointment_data')
     if not appointment_data or 'time' not in request.GET:
@@ -143,6 +140,7 @@ def confirm_appointment(request):
 
 
 from decimal import Decimal
+@login_required
 def save_appointment(request):
     if request.method == 'POST':
         appointment_data = request.session.get('appointment_data')
@@ -188,6 +186,7 @@ def save_appointment(request):
 
     return redirect('booking:book_appointment')
 
+@login_required
 def appointment_success(request):
     appointment_data = request.session.get('last_appointment')
 
@@ -203,7 +202,7 @@ def appointment_success(request):
     })
 
 
-#@login_required
+@login_required
 def my_appointments(request):
     appointments = Appointment.objects.filter(user=request.user).order_by('-date')
     return render(request, 'booking/my_appointments.html', {'appointments': appointments})
