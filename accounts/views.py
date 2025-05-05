@@ -13,9 +13,10 @@ def register_view(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Sign-up successful! You can now log in.')
-            return redirect('login')
+            user = form.save()
+            login(request, user)
+            return redirect('profile')
+
     else:
         form = SignUpForm()
     return render(request, 'accounts/register.html', {'form': form})
