@@ -1,41 +1,34 @@
-
-{% extends 'booking/base.html' %}
-{% load static %}
+{% extends 'base.html' %}
 {% block content %}
-<div class="container mt-5">
-  <h2 class="text-center">My Profile</h2>
+<h2>{{ user.username }}'s Profile</h2>
+<p><strong>Email:</strong> {{ user.email }}</p>
+<a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
 
-  <div class="card p-3 mt-3">
-    <h5>User Info</h5>
-    <p><strong>Username:</strong> {{ user.username }}</p>
-    <p><strong>Email:</strong> {{ user.email }}</p>
-  </div>
+<h3 class="mt-4">Upcoming Appointments</h3>
+<ul>
+    {% for a in upcoming_appointments %}
+    <li>{{ a.date }} - {{ a.service.name }}</li>
+    {% endfor %}
+</ul>
 
-  <div class="row mt-4">
-    <div class="col-md-6">
-      <h5>Upcoming Appointments</h5>
-      {% if upcoming_appointments %}
-        <ul class="list-group">
-          {% for a in upcoming_appointments %}
-          <li class="list-group-item">{{ a.service.name }} on {{ a.date }} at {{ a.time }}</li>
-          {% endfor %}
-        </ul>
-      {% else %}
-        <p>No upcoming appointments.</p>
-      {% endif %}
-    </div>
-    <div class="col-md-6">
-      <h5>Past Appointments</h5>
-      {% if past_appointments %}
-        <ul class="list-group">
-          {% for a in past_appointments %}
-          <li class="list-group-item">{{ a.service.name }} on {{ a.date }} at {{ a.time }}</li>
-          {% endfor %}
-        </ul>
-      {% else %}
-        <p>No past appointments.</p>
-      {% endif %}
-    </div>
-  </div>
-</div>
+<h3>Past Appointments</h3>
+<ul>
+    {% for a in past_appointments %}
+    <li>{{ a.date }} - {{ a.service.name }}</li>
+    {% endfor %}
+</ul>
+
+<h3>Most Used Services</h3>
+<ul>
+    {% for service, count in freq_services.items %}
+    <li>{{ service }} - {{ count }} times</li>
+    {% endfor %}
+</ul>
+
+<h3>Frequently Contacted Stylists</h3>
+<ul>
+    {% for stylist, count in freq_stylists.items %}
+    <li>{{ stylist }} - {{ count }} times</li>
+    {% endfor %}
+</ul>
 {% endblock %}
