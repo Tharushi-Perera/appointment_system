@@ -3,14 +3,19 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import SignUpForm
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from django.utils import timezone
+from booking.models import Appointment
+
 
 def register_view(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('home')  # Redirect to home after successful signup
+            form.save()
+            messages.success(request, 'Sign-up successful! You can now log in.')
+            return redirect('login')
     else:
         form = SignUpForm()
     return render(request, 'accounts/register.html', {'form': form})
@@ -41,3 +46,16 @@ def logout_view(request):
     logout(request)
     messages.info(request, "Logged out.")
     return redirect('login')
+
+
+@login_required
+def profile_view(request):
+    user = request.user
+    past_appointments = user.appointments.filter(date__lt=timezone.now()).order_by('-date')
+    upcoming_appointments = user.appointments.filter(date__gte=timezone.now()).order_by('date')
+
+    return render(request, 'accounts/profile.html', {
+        'user': user,
+        'past_appointments': past_appointments,
+        'upcoming_appointments': upcoming_appointments,
+    })
