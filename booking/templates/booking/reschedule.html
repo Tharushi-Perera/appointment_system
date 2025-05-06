@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-purple text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-calendar-edit me-2"></i>
+                        Reschedule: {{ appointment.service.name }}
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" id="rescheduleForm">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label">New Date</label>
+                            <input type="date"
+                                   class="form-control"
+                                   name="date"
+                                   id="appointmentDate"
+                                   value="{{ appointment.date|date:'Y-m-d' }}"
+                                   min="{{ min_date|date:'Y-m-d' }}"
+                                   max="{{ max_date|date:'Y-m-d' }}"
+                                   required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">New Time</label>
+                            <select class="form-control" name="time" id="appointmentTime" required>
+                                <option value="">Select a time</option>
+                                {% for slot in time_slots %}
+                                <option value="{{ slot.value }}"
+                                        {% if appointment.time|time:'H:i:s' == slot.value %}selected{% endif %}>
+                                    {{ slot.display }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{% url 'booking:my_appointments' %}" class="btn btn-secondary">
+                                Cancel
+                            </a>
+                            <button type="submit" class="btn btn-purple">
+                                <i class="fas fa-check me-1"></i>
+                                Confirm Reschedule
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-purple { background-color: #7b1fa2; }
+    .btn-purple { background-color: #7b1fa2; color: white; }
+</style>
+{% endblock %}

@@ -1,24 +1,38 @@
-import datetime
-
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from .forms import AppointmentForm
 from .models import Appointment, Service
 from .models import Service
 from .models import ServiceSubCategory, Service
-from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.views.decorators.http import require_POST
+from django.shortcuts import get_object_or_404
+from datetime import datetime, date, time, timedelta
+import datetime as dt
+from django.utils import timezone
+from .models import ServiceCategory
+from decimal import Decimal
+
+# Constants for business hours
+OPENING_TIME = time(9, 0)  # 9 AM
+CLOSING_TIME = time(21, 0) # 9 PM
 
 
-def generate_time_slots(start_time, end_time, duration):
+def generate_time_slots(date, duration_minutes):
     slots = []
-    current = start_time
-    while current + datetime.timedelta(minutes=duration) <= end_time:
-        slots.append(current.strftime("%H:%M"))
-        current += datetime.timedelta(minutes=duration)
-    return slots
+    start_datetime = datetime.combine(date, time(9, 0))  # 9 AM
+    end_datetime = datetime.combine(date, time(21, 0))  # 9 PM
 
+    current = start_datetime
+    while current + timedelta(minutes=duration_minutes) <= end_datetime:
+        slots.append({
+            'value': current.time().strftime('%H:%M:%S'),  # Storage format
+            'display': current.time().strftime('%I:%M %p')  # Display format
+        })
+        current += timedelta(minutes=duration_minutes)
+    return slots
 
 
 def home(request):
@@ -26,8 +40,6 @@ def home(request):
     return render(request, 'home.html', {'listing_services': services})
 
 
-
-from .models import ServiceCategory
 @login_required
 def book_appointment(request):
     categories = ServiceCategory.objects.prefetch_related(
@@ -61,62 +73,37 @@ def book_appointment(request):
 
 @login_required
 def confirm_appointment(request):
-    if request.method == 'POST':
-        appointment_data = request.session.get('appointment_data')
-        if appointment_data:
-            try:
-                services = Service.objects.filter(id__in=appointment_data['service_ids'])
-                selected_time = request.POST.get('time')
-
-                # Create appointment for each service
-                for service in services:
-                    Appointment.objects.create(
-                        user=request.user,
-                        service=service,
-                        date=appointment_data['date'],
-                        time=selected_time,
-                        status='Pending'
-                    )
-
-                # Clear session data
-                if 'appointment_data' in request.session:
-                    del request.session['appointment_data']
-
-                return redirect('booking:my_appointments')
-
-            except (KeyError, Service.DoesNotExist):
-                pass
-
-    return redirect('booking:book_appointment')
-
-
-from django.shortcuts import get_object_or_404
-
-
-@login_required
-def choose_time(request):
     appointment_data = request.session.get('appointment_data')
-    if not appointment_data:
+    if not appointment_data or 'time' not in request.GET:
         return redirect('booking:book_appointment')
 
     try:
         services = Service.objects.filter(id__in=appointment_data['service_ids'])
         total_duration = sum(service.duration_minutes for service in services)
-        date = datetime.date.fromisoformat(appointment_data['date'])
 
-        # Generate time slots (9 AM to 5 PM)
-        start_time = datetime.datetime.combine(date, datetime.time(9, 0))
-        end_time = datetime.datetime.combine(date, datetime.time(17, 0))
-        slots = generate_time_slots(start_time, end_time, services[0].duration_minutes)
+        # Handle date
+        date_str = appointment_data['date']
+        appointment_date = datetime.strptime(date_str, '%Y-%m-%d').date() if isinstance(date_str, str) else date_str
 
-        return render(request, 'booking/choose_time.html', {
+        # Handle time - accepts both "HH:MM:SS" and "HH:MM AM/PM"
+        time_str = request.GET['time']
+        try:
+            # Try parsing as 24-hour format first
+            appointment_time = datetime.strptime(time_str, '%H:%M:%S').time()
+        except ValueError:
+            # If that fails, try 12-hour format
+            appointment_time = datetime.strptime(time_str, '%I:%M %p').time()
+
+        return render(request, 'booking/confirm_appointment.html', {
             'services': services,
-            'date': date,
-            'slots': slots,
+            'date': appointment_date,
+            'time': appointment_time.strftime('%I:%M %p'),  # Display as 12-hour format
             'total_duration': total_duration
         })
-    except (Service.DoesNotExist, KeyError, ValueError):
+    except Exception as e:
+        print(f"Error in confirmation: {e}")
         return redirect('booking:book_appointment')
+
 
 @login_required
 def confirm_appointment(request):
@@ -127,19 +114,31 @@ def confirm_appointment(request):
     try:
         services = Service.objects.filter(id__in=appointment_data['service_ids'])
         total_duration = sum(service.duration_minutes for service in services)
-        date = datetime.date.fromisoformat(appointment_data['date'])
+
+        # Handle date parsing safely
+        date_str = appointment_data['date']
+        if isinstance(date_str, str):
+            appointment_date = datetime.strptime(date_str, '%Y-%m-%d').date()
+        else:
+            appointment_date = date_str
+
+        # Handle time parsing
+        time_str = request.GET['time']
+        if 'value' in time_str:  # If JSON got encoded
+            time_str = time_str.split("'value': '")[1].split("'")[0]
+        appointment_time = datetime.strptime(time_str, '%H:%M:%S').time()
 
         return render(request, 'booking/confirm_appointment.html', {
             'services': services,
-            'date': date,
-            'time': request.GET['time'],
+            'date': appointment_date,
+            'time': appointment_time.strftime('%I:%M %p'),
             'total_duration': total_duration
         })
-    except (Service.DoesNotExist, KeyError, ValueError):
+    except Exception as e:
+        print(f"Error in confirmation: {e}")
         return redirect('booking:book_appointment')
 
 
-from decimal import Decimal
 @login_required
 def save_appointment(request):
     if request.method == 'POST':
@@ -149,28 +148,36 @@ def save_appointment(request):
 
         try:
             services = Service.objects.filter(id__in=appointment_data['service_ids'])
-            time = request.POST.get('time')
-            date = datetime.date.fromisoformat(appointment_data['date'])
+            time_str = request.POST.get('time')
+            date_str = appointment_data['date']
 
-            # Store appointment details in session
-            request.session['last_appointment'] = {  # Changed key to match what appointment_success expects
+            # Parse date
+            appointment_date = datetime.strptime(date_str, '%Y-%m-%d').date() if isinstance(date_str, str) else date_str
+
+            # Parse time - handles both formats
+            try:
+                appointment_time = datetime.strptime(time_str, '%H:%M:%S').time()
+            except ValueError:
+                appointment_time = datetime.strptime(time_str, '%I:%M %p').time()
+
+            # Save to session
+            request.session['last_appointment'] = {
                 'services': [s.name for s in services],
-                'date': date.strftime("%B %d, %Y"),
-                'time': time,
+                'date': appointment_date.strftime("%B %d, %Y"),
+                'time': appointment_time.strftime('%I:%M %p'),
                 'total': float(sum(service.price for service in services))
             }
 
-            # Create appointment records
+            # Create appointments
             for service in services:
                 Appointment.objects.create(
                     user=request.user,
                     service=service,
-                    date=date,
-                    time=time,
+                    date=appointment_date,
+                    time=appointment_time,
                     status='Pending'
                 )
 
-            # Clear temporary data
             del request.session['appointment_data']
             request.session.modified = True
 
@@ -227,57 +234,72 @@ def get_services(request):
     })
 
 
+@login_required
 def choose_time(request):
     appointment_data = request.session.get('appointment_data')
     if not appointment_data:
         return redirect('booking:book_appointment')
 
     try:
-        # Get the primary service (first selected)
         primary_service = Service.objects.get(id=appointment_data['service_ids'][0])
-        date = datetime.date.fromisoformat(appointment_data['date'])
+        date = datetime.strptime(appointment_data['date'], '%Y-%m-%d').date()
 
-        # Generate time slots based on the primary service duration
-        start_time = datetime.datetime.combine(date, datetime.time(9, 0))  # 9 AM
-        end_time = datetime.datetime.combine(date, datetime.time(17, 0))   # 5 PM
-        slots = generate_time_slots(start_time, end_time, primary_service.duration_minutes)
-
-        # Get all selected services for display
+        time_slots = generate_time_slots(date, primary_service.duration_minutes)
         selected_services = Service.objects.filter(id__in=appointment_data['service_ids'])
+
+        # Calculate total duration
+        total_duration = sum(s.duration_minutes for s in selected_services)
 
         return render(request, 'booking/choose_time.html', {
             'services': selected_services,
             'primary_service': primary_service,
             'date': date,
-            'slots': slots,
+            'slots': time_slots,
+            'total_duration': total_duration
         })
-    except (Service.DoesNotExist, KeyError, ValueError):
+    except (Service.DoesNotExist, KeyError, ValueError) as e:
+        messages.error(request, "Invalid appointment data")
         return redirect('booking:book_appointment')
 
-def add_to_cart(request):
+@login_required
+@require_POST
+def cancel_appointment(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id, user=request.user)
+    appointment.status = 'Cancelled'
+    appointment.save()
+    messages.success(request, f"Appointment for {appointment.service.name} has been cancelled.")
+    return redirect('booking:my_appointments')
+
+
+@login_required
+def reschedule_appointment(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id, user=request.user)
+
     if request.method == 'POST':
-        if 'cart' not in request.session:
-            request.session['cart'] = []
+        date_str = request.POST.get('date')
+        time_str = request.POST.get('time')
 
-        service_id = request.POST.get('service_id')
-        date = request.POST.get('date')
+        try:
+            # Validate and update appointment
+            appointment.date = datetime.strptime(date_str, '%Y-%m-%d').date()
+            appointment.time = datetime.strptime(time_str, '%H:%M:%S').time()
+            appointment.status = 'Rescheduled'
+            appointment.save()
 
-        request.session['cart'].append({
-            'service_id': service_id,
-            'date': date
-        })
-        return JsonResponse({'status': 'success'})
+            messages.success(request, "Appointment rescheduled successfully!")
+            return redirect('booking:my_appointments')
+        except Exception as e:
+            messages.error(request, f"Error rescheduling: {str(e)}")
 
-def view_cart(request):
-    cart = request.session.get('cart', [])
-    services = []
-    for item in cart:
-        service = Service.objects.get(id=item['service_id'])
-        services.append({
-            'service': service,
-            'date': item['date']
-        })
-    return render(request, 'booking/cart.html', {'services': services})
+    # Generate time slots for the current appointment date by default
+    time_slots = generate_time_slots(appointment.date, appointment.service.duration_minutes)
+
+    return render(request, 'booking/reschedule.html', {
+        'appointment': appointment,
+        'time_slots': time_slots,
+        'min_date': timezone.now().date(),
+        'max_date': timezone.now().date() + timedelta(days=60)  # 2 months in future
+    })
 
 def contact(request):
     return render(request, 'contact.html')
