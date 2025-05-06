@@ -1,34 +1,45 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>{{ user.username }}'s Profile</h2>
-<p><strong>Email:</strong> {{ user.email }}</p>
-<a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4 text-center">
+      <img src="{{ profile.profile_picture.url }}" class="rounded-circle" width="150" height="150">
+      <h4 class="mt-2">{{ user.username }}</h4>
+      <p>{{ user.email }}</p>
+      <p>{{ profile.phone }}</p>
+      <p>{{ profile.address }}</p>
+      <a href="{% url 'edit_profile' %}" class="btn btn-outline-primary btn-sm">Edit Profile</a>
+    </div>
 
-<h3 class="mt-4">Upcoming Appointments</h3>
-<ul>
-    {% for a in upcoming_appointments %}
-    <li>{{ a.date }} - {{ a.service.name }}</li>
-    {% endfor %}
-</ul>
+    <div class="col-md-8">
+      <h5>Upcoming Appointments</h5>
+      <ul>
+        {% for a in upcoming_appointments %}
+          <li>{{ a.date }} - {{ a.service.name }}</li>
+        {% endfor %}
+      </ul>
 
-<h3>Past Appointments</h3>
-<ul>
-    {% for a in past_appointments %}
-    <li>{{ a.date }} - {{ a.service.name }}</li>
-    {% endfor %}
-</ul>
+      <h5>Past Appointments</h5>
+      <ul>
+        {% for a in past_appointments %}
+          <li>{{ a.date }} - {{ a.service.name }}</li>
+        {% endfor %}
+      </ul>
 
-<h3>Most Used Services</h3>
-<ul>
-    {% for service, count in freq_services.items %}
-    <li>{{ service }} - {{ count }} times</li>
-    {% endfor %}
-</ul>
+      <h5>Most Used Services</h5>
+      <ul>
+        {% for service, count in freq_services.items %}
+          <li>{{ service }} - {{ count }} times</li>
+        {% endfor %}
+      </ul>
 
-<h3>Frequently Contacted Stylists</h3>
-<ul>
-    {% for stylist, count in freq_stylists.items %}
-    <li>{{ stylist }} - {{ count }} times</li>
-    {% endfor %}
-</ul>
+      <h5>Frequent Stylists</h5>
+      <ul>
+        {% for stylist, count in freq_stylists.items %}
+          <li>{{ stylist }} - {{ count }} times</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
 {% endblock %}
