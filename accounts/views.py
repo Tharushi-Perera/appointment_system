@@ -4,15 +4,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth import get_backends
 from .forms import SignUpForm, ProfileUpdateForm, UserForm, UserProfileForm
 from booking.models import Appointment
 from accounts.models import UserProfile
-
 from collections import Counter
-
-
-
 
 
 def register_view(request):
@@ -20,11 +16,15 @@ def register_view(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
-            return redirect('profile')
 
+            # Create UserProfile ONLY IF it doesn't already exist
+            UserProfile.objects.get_or_create(user=user)
+
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            return redirect('accounts:profile')
     else:
         form = SignUpForm()
+
     return render(request, 'accounts/register.html', {'form': form})
 
 def home(request):
