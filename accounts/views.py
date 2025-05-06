@@ -90,7 +90,7 @@ def profile_edit(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            return redirect('profile')
+            return redirect('accounts:profile')
 
     return render(request, 'accounts/edit_profile.html', {
         'user_form': user_form,
