@@ -204,22 +204,38 @@ def choose_time(request):
         return redirect('booking:book_appointment')
 
     try:
+        # Get selected services and date
         primary_service = Service.objects.get(id=appointment_data['service_ids'][0])
         date = datetime.strptime(appointment_data['date'], '%Y-%m-%d').date()
-
-        time_slots = generate_time_slots(date, primary_service.duration_minutes)
         selected_services = Service.objects.filter(id__in=appointment_data['service_ids'])
-
-        # Calculate total duration
         total_duration = sum(s.duration_minutes for s in selected_services)
+
+        # Generate ALL possible slots
+        all_slots = generate_time_slots(date, primary_service.duration_minutes)
+
+        # Fetch existing appointments for the date
+        existing_appointments = Appointment.objects.filter(
+            date=date,
+            status__in=['Pending', 'Confirmed']  # Ignore cancelled/completed
+        ).values_list('time', flat=True)
+
+        # Convert booked times to match slot format ("HH:MM:SS")
+        booked_times = [t.strftime('%H:%M:%S') for t in existing_appointments]
+
+        # Filter out occupied slots
+        available_slots = [
+            slot for slot in all_slots
+            if slot['value'] not in booked_times
+        ]
 
         return render(request, 'booking/choose_time.html', {
             'services': selected_services,
             'primary_service': primary_service,
             'date': date,
-            'slots': time_slots,
+            'slots': available_slots,  # Only show available slots
             'total_duration': total_duration
         })
+
     except (Service.DoesNotExist, KeyError, ValueError) as e:
         messages.error(request, "Invalid appointment data")
         return redirect('booking:book_appointment')
