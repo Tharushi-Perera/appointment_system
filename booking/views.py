@@ -152,18 +152,15 @@ def save_appointment(request):
             time = request.POST.get('time')
             date = datetime.date.fromisoformat(appointment_data['date'])
 
-            # Convert Decimal to float for session storage
-            total = float(sum(service.price for service in services))
-
-            # Store appointment details in session before redirect
-            request.session['last_appointment_details'] = {
+            # Store appointment details in session
+            request.session['last_appointment'] = {  # Changed key to match what appointment_success expects
                 'services': [s.name for s in services],
                 'date': date.strftime("%B %d, %Y"),
                 'time': time,
-                'total': total  # Now storing as float instead of Decimal
+                'total': float(sum(service.price for service in services))
             }
 
-            # Create appointment for each service
+            # Create appointment records
             for service in services:
                 Appointment.objects.create(
                     user=request.user,
@@ -173,34 +170,33 @@ def save_appointment(request):
                     status='Pending'
                 )
 
-            # Clear temporary session data but keep last appointment
+            # Clear temporary data
             del request.session['appointment_data']
-
-            # Save the session explicitly
             request.session.modified = True
 
             return redirect('booking:appointment_success')
         except Exception as e:
             print(f"Error saving appointment: {e}")
             return redirect('booking:book_appointment')
-
     return redirect('booking:book_appointment')
+
 
 @login_required
 def appointment_success(request):
-    appointment_data = request.session.get('last_appointment')
+    appointment_data = request.session.get('last_appointment')  # Keep this key
 
     if not appointment_data:
         return redirect('booking:book_appointment')
 
-    # Clear the session data after displaying
-    if 'last_appointment' in request.session:
-        del request.session['last_appointment']
-
+    # Pass the correct data to template
     return render(request, 'booking/appointment_success.html', {
-        'appointment': appointment_data
+        'appointment': {
+            'date': appointment_data['date'],
+            'time': appointment_data['time'],
+            'services': appointment_data['services'],
+            'total': appointment_data['total']
+        }
     })
-
 
 @login_required
 def my_appointments(request):
