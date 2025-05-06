@@ -4,8 +4,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-from .forms import SignUpForm, ProfileUpdateForm
+
+from .forms import SignUpForm, ProfileUpdateForm, UserForm, UserProfileForm
 from booking.models import Appointment
+
+from collections import Counter
 
 
 
@@ -65,33 +68,36 @@ def profile_view(request):
 @login_required
 def profile_view(request):
     user = request.user
+    profile = user.userprofile
     past_appointments = Appointment.objects.filter(user=user, date__lt=timezone.now()).order_by('-date')
     upcoming_appointments = Appointment.objects.filter(user=user, date__gte=timezone.now()).order_by('date')
 
-    services = [a.service.name for a in past_appointments]
-    stylists = [a.service.subcategory.name for a in past_appointments]
-
-    freq_services = {s: services.count(s) for s in set(services)}
-    freq_stylists = {s: stylists.count(s) for s in set(stylists)}
+    freq_services = Counter([a.service.name for a in past_appointments])
+    freq_stylists = Counter([a.service.subcategory.name for a in past_appointments])  # or stylist model if exists
 
     return render(request, 'accounts/profile.html', {
         'user': user,
+        'profile': profile,
         'past_appointments': past_appointments,
         'upcoming_appointments': upcoming_appointments,
-        'freq_services': freq_services,
-        'freq_stylists': freq_stylists,
+        'freq_services': dict(freq_services),
+        'freq_stylists': dict(freq_stylists),
     })
-
 
 @login_required
 def profile_edit(request):
-    if request.method == 'POST':
-        form = ProfileUpdateForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Your profile was updated successfully!')
-            return redirect('profile')
-    else:
-        form = ProfileUpdateForm(instance=request.user)
-    return render(request, 'accounts/edit_profile.html', {'form': form})
+    user_form = UserForm(instance=request.user)
+    profile_form = UserProfileForm(instance=request.user.userprofile)
 
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user.userprofile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect('profile')
+
+    return render(request, 'accounts/edit_profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
