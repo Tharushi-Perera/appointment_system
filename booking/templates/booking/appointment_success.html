@@ -1,61 +1,77 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-lg-8">
-            <div class="card shadow-lg border-0">
-                <div class="card-header bg-success text-white">
-                    <h2 class="mb-0">
-                        <i class="fas fa-check-circle me-2"></i>
-                        Appointment Confirmed!
-                    </h2>
+            <div class="card border-0 shadow-lg" style="border-radius: 15px; overflow: hidden;">
+                <div class="card-header text-white py-4" style="background: linear-gradient(135deg, #7b1fa2 0%, #4a148c 100%);">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <div class="me-3" style="font-size: 2.5rem;">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div>
+                            <h2 class="mb-0">Appointment Confirmed!</h2>
+                            <p class="mb-0" style="opacity: 0.9;">Your beauty session is all set</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="card-body">
-                    <div class="alert alert-success">
-                        <h4 class="alert-heading">Thank you for your booking!</h4>
-                        <p>We've sent a confirmation to your email.</p>
+                <div class="card-body p-4">
+                    <div class="text-center mb-4">
+                        <img src="{% static 'images/confirm.jpg' %}" alt="Confirmed" style="height: 120px;" class="img-fluid">
                     </div>
 
-                    <div class="appointment-details">
-                        <h4 class="text-purple mb-3">Your Appointment Details:</h4>
+                    <div class="appointment-details p-4" style="background-color: #f9f0ff; border-radius: 10px;">
+                        <h4 class="text-center mb-4" style="color: #4a148c; font-weight: 600;">Your Appointment Details</h4>
 
-                        <div class="detail-item">
-                            <span class="detail-label">Date:</span>
-                            <span class="detail-value">{{ appointment.date }}</span>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="detail-card mb-4 p-3" style="background-color: white; border-radius: 8px; border-left: 4px solid #7b1fa2;">
+                                    <div class="detail-label" style="color: #7b1fa2; font-weight: 500;">Date</div>
+                                    <div class="detail-value fs-5" style="color: #4a148c;">{{ appointment.date }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="detail-card mb-4 p-3" style="background-color: white; border-radius: 8px; border-left: 4px solid #7b1fa2;">
+                                    <div class="detail-label" style="color: #7b1fa2; font-weight: 500;">Time</div>
+                                    <div class="detail-value fs-5" style="color: #4a148c;">{{ appointment.time }}</div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="detail-item">
-                            <span class="detail-label">Time:</span>
-                            <span class="detail-value">{{ appointment.time }}</span>
-                        </div>
-
-                        <div class="detail-item">
-                            <span class="detail-label">Services:</span>
-                            <ul class="list-group mt-2">
+                        <div class="detail-card mb-4 p-3" style="background-color: white; border-radius: 8px; border-left: 4px solid #7b1fa2;">
+                            <div class="detail-label mb-2" style="color: #7b1fa2; font-weight: 500;">Services Booked</div>
+                            <div class="d-flex flex-wrap">
                                 {% for service in appointment.services %}
-                                <li class="list-group-item">{{ service }}</li>
+                                <span class="service-pill me-2 mb-2" style="background-color: #e1bee7; color: #4a148c; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem;">
+                                    {{ service }}
+                                </span>
                                 {% endfor %}
-                            </ul>
+                            </div>
                         </div>
 
-                        <div class="detail-item">
-                            <span class="detail-label">Total:</span>
-                            <span class="detail-value">Rs. {{ appointment.total|floatformat:2 }}</span>
+                        <div class="detail-card p-3 text-center" style="background-color: #7b1fa2; color: white; border-radius: 8px;">
+                            <div class="detail-label" style="font-weight: 500;">Total Amount</div>
+                            <div class="detail-value fs-4" style="font-weight: 700;">Rs. {{ appointment.total|floatformat:2 }}</div>
                         </div>
                     </div>
 
-                    <div class="mt-4 text-center">
-                        <a href="{% url 'booking:my_appointments' %}" class="btn btn-primary">
+                    <div class="text-center mt-5">
+                        <a href="{% url 'booking:my_appointments' %}" class="btn btn-lg me-3" style="background-color: #7b1fa2; color: white; border-radius: 8px; padding: 0.75rem 2rem;">
                             <i class="fas fa-calendar-alt me-2"></i>
                             View My Appointments
                         </a>
-                        <a href="{% url 'home' %}" class="btn btn-outline-secondary ms-2">
+                        <a href="{% url 'home' %}" class="btn btn-lg btn-outline-secondary" style="border-color: #7b1fa2; color: #7b1fa2; border-radius: 8px; padding: 0.75rem 2rem;">
                             <i class="fas fa-home me-2"></i>
                             Return Home
                         </a>
                     </div>
+                </div>
+
+                <div class="card-footer text-center py-3" style="background-color: #f3e5f5; color: #7b1fa2;">
+                    <p class="mb-0">We look forward to serving you!</p>
                 </div>
             </div>
         </div>
@@ -63,23 +79,16 @@
 </div>
 
 <style>
-    .detail-item {
-        margin-bottom: 1.5rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px dashed #eee;
+    .service-pill:hover {
+        background-color: #ce93d8 !important;
+        transform: translateY(-2px);
+        transition: all 0.3s ease;
     }
-    .detail-label {
-        font-weight: 600;
-        color: #6f42c1;
-    }
-    .detail-value {
-        float: right;
-    }
-    .text-purple {
-        color: #6f42c1;
-    }
-    .bg-purple {
-        background-color: #6f42c1;
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(123, 31, 162, 0.2);
+        transition: all 0.3s ease;
     }
 </style>
 {% endblock %}
