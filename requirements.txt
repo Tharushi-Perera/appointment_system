@@ -1,0 +1,6 @@
+Django
+django-widget-tweaks
+django-allauth
+pyJWT
+django-cryptography
+Pillow
