@@ -56,30 +56,16 @@ def logout_view(request):
 def profile_view(request):
     user = request.user
 
-    # Ensure the user has a profile (create one if missing)
+    # Ensure the profile exists
     profile, created = UserProfile.objects.get_or_create(user=user)
 
     # Fetch appointments
-    past_appointments = user.appointments.filter(date__lt=timezone.now()).order_by('-date')
-    upcoming_appointments = user.appointments.filter(date__gte=timezone.now()).order_by('date')
-
-    return render(request, 'accounts/profile.html', {
-        'user': user,
-        'profile': profile,
-        'past_appointments': past_appointments,
-        'upcoming_appointments': upcoming_appointments,
-    })
-
-
-@login_required
-def profile_view(request):
-    user = request.user
-    profile = user.userprofile
     past_appointments = Appointment.objects.filter(user=user, date__lt=timezone.now()).order_by('-date')
     upcoming_appointments = Appointment.objects.filter(user=user, date__gte=timezone.now()).order_by('date')
 
+    # Analyze usage
     freq_services = Counter([a.service.name for a in past_appointments])
-    freq_stylists = Counter([a.service.subcategory.name for a in past_appointments])  # or stylist model if exists
+    freq_stylists = Counter([a.service.subcategory.name for a in past_appointments if a.service.subcategory])  # or a.stylist.name if stylist exists
 
     return render(request, 'accounts/profile.html', {
         'user': user,
@@ -89,6 +75,7 @@ def profile_view(request):
         'freq_services': dict(freq_services),
         'freq_stylists': dict(freq_stylists),
     })
+
 
 @login_required
 def profile_edit(request):
