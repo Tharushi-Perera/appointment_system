@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 from .forms import SignUpForm, ProfileUpdateForm, UserForm, UserProfileForm
 from booking.models import Appointment
+from accounts.models import UserProfile
 
 from collections import Counter
 
@@ -51,15 +52,20 @@ def logout_view(request):
     messages.info(request, "Logged out.")
     return redirect('accounts:login')
 
-
 @login_required
 def profile_view(request):
     user = request.user
+
+    # Ensure the user has a profile (create one if missing)
+    profile, created = UserProfile.objects.get_or_create(user=user)
+
+    # Fetch appointments
     past_appointments = user.appointments.filter(date__lt=timezone.now()).order_by('-date')
     upcoming_appointments = user.appointments.filter(date__gte=timezone.now()).order_by('date')
 
     return render(request, 'accounts/profile.html', {
         'user': user,
+        'profile': profile,
         'past_appointments': past_appointments,
         'upcoming_appointments': upcoming_appointments,
     })
