@@ -1,8 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from .forms import AppointmentForm
-from .models import Appointment, Service
-from .models import Service
+from .models import Appointment
 from .models import ServiceSubCategory, Service
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -10,7 +9,6 @@ from django.contrib import messages
 from django.views.decorators.http import require_POST
 from django.shortcuts import get_object_or_404
 from datetime import datetime, date, time, timedelta
-import datetime as dt
 from django.utils import timezone
 from .models import ServiceCategory
 from decimal import Decimal
@@ -106,40 +104,6 @@ def confirm_appointment(request):
 
 
 @login_required
-def confirm_appointment(request):
-    appointment_data = request.session.get('appointment_data')
-    if not appointment_data or 'time' not in request.GET:
-        return redirect('booking:book_appointment')
-
-    try:
-        services = Service.objects.filter(id__in=appointment_data['service_ids'])
-        total_duration = sum(service.duration_minutes for service in services)
-
-        # Handle date parsing safely
-        date_str = appointment_data['date']
-        if isinstance(date_str, str):
-            appointment_date = datetime.strptime(date_str, '%Y-%m-%d').date()
-        else:
-            appointment_date = date_str
-
-        # Handle time parsing
-        time_str = request.GET['time']
-        if 'value' in time_str:  # If JSON got encoded
-            time_str = time_str.split("'value': '")[1].split("'")[0]
-        appointment_time = datetime.strptime(time_str, '%H:%M:%S').time()
-
-        return render(request, 'booking/confirm_appointment.html', {
-            'services': services,
-            'date': appointment_date,
-            'time': appointment_time.strftime('%I:%M %p'),
-            'total_duration': total_duration
-        })
-    except Exception as e:
-        print(f"Error in confirmation: {e}")
-        return redirect('booking:book_appointment')
-
-
-@login_required
 def save_appointment(request):
     if request.method == 'POST':
         appointment_data = request.session.get('appointment_data')
@@ -210,8 +174,7 @@ def my_appointments(request):
     appointments = Appointment.objects.filter(user=request.user).order_by('-date')
     return render(request, 'booking/my_appointments.html', {'appointments': appointments})
 
-def offers(request):
-    return render(request, 'offers.html')
+
   
 def get_subcategories(request):
     category_id = request.GET.get('category_id')
@@ -301,5 +264,4 @@ def reschedule_appointment(request, appointment_id):
         'max_date': timezone.now().date() + timedelta(days=60)  # 2 months in future
     })
 
-def contact(request):
-    return render(request, 'contact.html')
+
