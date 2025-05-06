@@ -1,18 +1,136 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
-<h2 class="mb-4">My Appointments</h2>
-{% if appointments %}
-  <div class="list-group">
-    {% for a in appointments %}
-      <div class="list-group-item d-flex justify-content-between align-items-center">
-        <div>
-          <strong>{{ a.service.name }}</strong> — {{ a.date }} at {{ a.time }}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="mb-0" style="color: #4a148c; font-weight: 700;">
+                    <i class="fas fa-calendar-alt me-3"></i>My Appointments
+                </h2>
+                <span class="badge rounded-pill" style="background-color: #7b1fa2; font-size: 1rem;">
+                    {{ appointments.count }} Total
+                </span>
+            </div>
+
+            {% if appointments %}
+            <div class="appointment-timeline">
+                {% for a in appointments %}
+                <div class="timeline-card mb-4 position-relative">
+                    <div class="card shadow-sm border-0" style="border-left: 4px solid {% if a.status == 'Completed' %}#4CAF50{% elif a.status == 'Cancelled' %}#F44336{% elif a.status == 'Rescheduled' %}#9C27B0{% else %}#7b1fa2{% endif %};">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div class="service-icon me-3" style="color: #7b1fa2;">
+                                            {% if "hair" in a.service.name|lower %}
+                                            <i class="fas fa-cut fa-lg"></i>
+                                            {% elif "facial" in a.service.name|lower %}
+                                            <i class="fas fa-spa fa-lg"></i>
+                                            {% elif "nail" in a.service.name|lower %}
+                                            <i class="fas fa-hand-paper fa-lg"></i>
+                                            {% elif "massage" in a.service.name|lower %}
+                                            <i class="fas fa-hands fa-lg"></i>
+                                            {% else %}
+                                            <i class="fas fa-calendar-check fa-lg"></i>
+                                            {% endif %}
+                                        </div>
+                                        <div>
+                                            <h5 class="mb-0" style="color: #4a148c;">{{ a.service.name }}</h5>
+                                            <small class="text-muted">{{ a.service.subcategory.category.name }}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-md-end">
+                                    <div class="appointment-time mb-2">
+                                        <span class="badge bg-light text-dark">
+                                            <i class="far fa-clock me-1"></i>
+                                            {{ a.time|time:"g:i A" }}
+                                        </span>
+                                    </div>
+                                    <div class="appointment-date">
+                                        <span class="badge bg-light text-dark">
+                                            <i class="far fa-calendar me-1"></i>
+                                            {{ a.date|date:"F j, Y" }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top">
+                                <div>
+                                    <span class="badge rounded-pill status-{{ a.status|lower }}">
+                                        {{ a.status }}
+                                    </span>
+                                </div>
+                                <div>
+                                    {% if a.status != 'Cancelled' and a.status != 'Completed' %}
+                                    <a href="{% url 'booking:reschedule_appointment' a.id %}" class="btn btn-sm btn-outline-primary me-2">
+                                        <i class="fas fa-edit me-1"></i>Reschedule
+                                    </a>
+                                    <form action="{% url 'booking:cancel_appointment' a.id %}" method="post" class="d-inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-sm btn-outline-danger"
+                                                onclick="return confirm('Are you sure you want to cancel this appointment?')">
+                                            <i class="fas fa-times me-1"></i>Cancel
+                                        </button>
+                                    </form>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="text-center py-5">
+                <img src="{% static 'images/no-appointments.svg' %}" alt="No appointments" class="img-fluid mb-4" style="max-height: 200px;">
+                <h4 class="text-muted mb-3">No Appointments Booked Yet</h4>
+                <a href="{% url 'booking:book_appointment' %}" class="btn btn-lg" style="background-color: #7b1fa2; color: white;">
+                    <i class="fas fa-plus me-2"></i>Book Your First Appointment
+                </a>
+            </div>
+            {% endif %}
         </div>
-        <span class="badge badge-info">{{ a.status }}</span>
-      </div>
-    {% endfor %}
-  </div>
-{% else %}
-  <div class="alert alert-warning">No appointments yet.</div>
-{% endif %}
+    </div>
+</div>
+
+<style>
+    .timeline-card::before {
+        content: '';
+        position: absolute;
+        left: 19px;
+        top: 24px;
+        bottom: -24px;
+        width: 2px;
+        background-color: #e1bee7;
+    }
+
+    .timeline-card:last-child::before {
+        display: none;
+    }
+
+    .service-icon i {
+        transition: transform 0.3s ease;
+    }
+
+    .timeline-card:hover .service-icon i {
+        transform: scale(1.2);
+    }
+
+    .appointment-timeline {
+        position: relative;
+        padding-left: 40px;
+    }
+
+    .status-pending { background-color: #FFC107; color: #000; }
+    .status-confirmed { background-color: #2196F3; color: #fff; }
+    .status-completed { background-color: #4CAF50; color: #fff; }
+    .status-cancelled { background-color: #F44336; color: #fff; }
+    .status-rescheduled { background-color: #9C27B0; color: #fff; }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 {% endblock %}
