@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 from .forms import SignUpForm, ProfileUpdateForm, UserForm, UserProfileForm
 from booking.models import Appointment
+from accounts.models import UserProfile
 
 from collections import Counter
 
@@ -49,31 +50,22 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     messages.info(request, "Logged out.")
-    return redirect('login')
-
-
-@login_required
-def profile_view(request):
-    user = request.user
-    past_appointments = user.appointments.filter(date__lt=timezone.now()).order_by('-date')
-    upcoming_appointments = user.appointments.filter(date__gte=timezone.now()).order_by('date')
-
-    return render(request, 'accounts/profile.html', {
-        'user': user,
-        'past_appointments': past_appointments,
-        'upcoming_appointments': upcoming_appointments,
-    })
-
+    return redirect('home')
 
 @login_required
 def profile_view(request):
     user = request.user
-    profile = user.userprofile
+
+    # Ensure the profile exists
+    profile, created = UserProfile.objects.get_or_create(user=user)
+
+    # Fetch appointments
     past_appointments = Appointment.objects.filter(user=user, date__lt=timezone.now()).order_by('-date')
     upcoming_appointments = Appointment.objects.filter(user=user, date__gte=timezone.now()).order_by('date')
 
+    # Analyze usage
     freq_services = Counter([a.service.name for a in past_appointments])
-    freq_stylists = Counter([a.service.subcategory.name for a in past_appointments])  # or stylist model if exists
+    freq_stylists = Counter([a.service.subcategory.name for a in past_appointments if a.service.subcategory])  # or a.stylist.name if stylist exists
 
     return render(request, 'accounts/profile.html', {
         'user': user,
@@ -83,6 +75,7 @@ def profile_view(request):
         'freq_services': dict(freq_services),
         'freq_stylists': dict(freq_stylists),
     })
+
 
 @login_required
 def profile_edit(request):
