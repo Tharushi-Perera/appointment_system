@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from booking import views as booking_views
 from django.conf import settings
 from django.conf.urls.static import static
-from accounts import views
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -16,9 +16,9 @@ urlpatterns = [
     path('book/', include('booking.urls', namespace='booking')),
     path('services/', include('salon_services.urls')),
     path('stylists/', TemplateView.as_view(template_name='stylists.html'), name='stylists'),
-    path('contact/', booking_views.contact, name='contact'),
-    path('offers/', booking_views.offers, name='offers'),
-    path('profile/', views.profile_view, name='profile'),
+    path('offers/', views.offers, name='offers'),
+    path('contact/', views.contact, name='contact'),
+    path('profile/', include(('accounts.urls', 'accounts'), namespace='accounts')),
 
     # Authentication
     path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
