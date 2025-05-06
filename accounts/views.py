@@ -13,6 +13,8 @@ from collections import Counter
 
 
 
+
+
 def register_view(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -94,3 +96,11 @@ def profile_edit(request):
         'user_form': user_form,
         'profile_form': profile_form
     })
+
+@login_required
+def delete_account(request):
+    if request.method == 'POST':
+        user = request.user
+        logout(request)  # Log out before deletion
+        user.delete()
+        return redirect('home')  # Redirect to home after deletion
